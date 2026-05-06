@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>محمد بورعادة | مطور ويب متكامل</title>
+    <!-- Tailwind CSS + Font Awesome + Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        background-color: #ffffff;
+        color: #111111;
+      }
+      /* custom primary color #6e0b14 */
+      .primary-bg {
+        background-color: #6e0b14;
+      }
+      .primary-text {
+        color: #6e0b14;
+      }
+      .primary-border {
+        border-color: #6e0b14;
+      }
+      .btn-primary {
+        background-color: #6e0b14;
+        color: white;
+        transition: all 0.2s ease;
+      }
+      .btn-primary:hover {
+        background-color: #4f0910;
+        transform: translateY(-2px);
+      }
+      .btn-outline-primary {
+        border: 1px solid #6e0b14;
+        color: #6e0b14;
+        background: transparent;
+        transition: 0.2s;
+      }
+      .btn-outline-primary:hover {
+        background-color: #6e0b14;
+        color: white;
+      }
+      .accent-border {
+        border-bottom: 3px solid #6e0b14;
+        display: inline-block;
+        padding-bottom: 6px;
+      }
+      .section-highlight {
+        border-top: 1px solid #eaeef2;
+        border-bottom: 1px solid #eaeef2;
+        background-color: #fefcfb;
+      }
+      .whatsapp-float {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background-color: #25d366;
+        color: white;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        transition: 0.2s;
+        z-index: 100;
+      }
+      .whatsapp-float:hover {
+        transform: scale(1.08);
+        background-color: #20b859;
+      }
+      .profile-img {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #6e0b14;
+        box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+      }
+      .lang-switch button {
+        transition: 0.2s;
+        font-weight: 500;
+      }
+      .lang-switch button.active-lang {
+        background-color: #6e0b14;
+        color: white;
+        border-color: #6e0b14;
+      }
+      .skill-badge {
+        background-color: #f3f4f6;
+        padding: 0.3rem 1rem;
+        border-radius: 40px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #1f2937;
+      }
+      .service-card {
+        transition: all 0.2s;
+        border: 1px solid #f0f0f0;
+      }
+      .service-card:hover {
+        border-color: #6e0b14;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      }
+      footer a {
+        transition: color 0.2s;
+      }
+      footer a:hover {
+        color: #6e0b14;
+      }
+      @media (max-width: 768px) {
+        .profile-img {
+          width: 130px;
+          height: 130px;
+        }
+      }
+      /* additional responsive tweaks */
+      @media (max-width: 640px) {
+        .hero-buttons {
+          justify-content: center;
+        }
+        .hero-description {
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <script>
+      const PROFILE_IMAGE_URL = "./static/DSC_6815.JPG";
+      const GITHUB_LINK =
+        "https://github.com/sunrise-112?tab=overview&from=2026-05-01&to=2026-05-06";
+      const FACEBOOK_LINK =
+        "https://www.facebook.com/profile.php?id=61560257165979";
+      const WHATSAPP_LINK = "https://wa.me/212611185284";
+      const EMAIL_ADDRESS = "mohamedbouraada2000@gmail.com";
+      const PHONE_NUMBER = "0611185284";
+    </script>
+
+    <nav
+      class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm"
+    >
+      <div
+        class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3"
+      >
+        <!-- الشعار / الاسم -->
+        <div class="text-2xl font-bold tracking-tight">
+          <span class="primary-text">MB</span>
+          <span class="text-black">Portfolio</span>
+        </div>
+
+        <!-- روابط سطح المكتب -->
+        <div class="hidden md:flex gap-6 text-sm font-medium">
+          <a
+            href="#hero"
+            class="hover:primary-text transition"
+            data-i18n="nav_home"
+            >الرئيسية</a
+          >
+          <a
+            href="#skills"
+            class="hover:primary-text transition"
+            data-i18n="nav_skills"
+            >المهارات</a
+          >
+          <a
+            href="#projects"
+            class="hover:primary-text transition"
+            data-i18n="nav_projects"
+            >المشاريع</a
+          >
+          <a
+            href="#services"
+            class="hover:primary-text transition"
+            data-i18n="nav_services"
+            >الخدمات</a
+          >
+          <a
+            href="#contact"
+            class="hover:primary-text transition"
+            data-i18n="nav_contact"
+            >اتصل بي</a
+          >
+        </div>
+
+        <!-- أزرار اللغة -->
+        <div class="lang-switch flex gap-2 text-xs">
+          <button
+            data-lang="ar"
+            class="active-lang px-3 py-1 rounded-full border border-gray-300 bg-white primary-text font-semibold transition"
+          >
+            عربي
+          </button>
+          <button
+            data-lang="en"
+            class="px-3 py-1 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
+          >
+            EN
+          </button>
+          <button
+            data-lang="fr"
+            class="px-3 py-1 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
+          >
+            FR
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-5 md:px-6 py-6 md:py-12">
+      <!-- Hero section – محسّن استجابة كاملة -->
+      <section
+        id="hero"
+        class="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 lg:gap-16 py-8 md:py-12"
+      >
+        <!-- النص -->
+        <div class="flex-1 text-center md:text-right">
+          <div
+            class="inline-block px-3 py-1 rounded-full bg-gray-100 text-xs font-semibold text-gray-700 mb-4"
+            data-i18n="hero_badge"
+          >
+            مطور ويب متكامل
+          </div>
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight"
+          >
+            <span
+              class="primary-text text-2xl sm:text-3xl md:text-4xl"
+              data-i18n="hero_stack"
+              >PERN & MERN Stack</span
+            >
+          </h1>
+          <div
+            class="flex flex-wrap justify-center md:justify-start gap-2 mt-4"
+          >
+            <span
+              class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full font-medium inline-flex items-center gap-1"
+            >
+              <i class="fas fa-map-marker-alt primary-text"></i>🇲🇦
+              <span data-i18n="hero_country">المغرب</span>
+            </span>
+          </div>
+          <p
+            class="text-gray-600 mt-5 leading-relaxed max-w-lg mx-auto md:mx-0 hero-description text-sm sm:text-base"
+            data-i18n="hero_desc"
+          >
+            مطور ويب متكامل متخصص في stacks PERN و MERN، مع خبرة في الأتمتة
+            (Python) وسحب البيانات، وبناء مواقع احترافية على WordPress، Shopify،
+            YouCan.
+          </p>
+          <div
+            class="flex flex-wrap gap-3 mt-6 justify-center md:justify-start hero-buttons"
+          >
+            <a
+              href="#contact"
+              class="btn-primary px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold shadow-sm transition"
+            >
+              <i class="fas fa-paper-plane ml-1"></i>
+              <span data-i18n="hero_hire">تواصل معي</span>
+            </a>
+            <a
+              href="#projects"
+              class="btn-outline-primary px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition"
+            >
+              <span data-i18n="hero_projects">مشاريعي</span>
+              <i class="fas fa-arrow-left mr-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- الصورة الدائرية -->
+        <div class="flex-shrink-0">
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            alt="Mohamed Bouraada"
+            class="profile-img shadow-xl object-cover"
+            id="profileImg"
+          />
+        </div>
+      </section>
+
+      <!-- المهارات الأساسية + تقنيات -->
+      <section id="skills" class="mt-16 md:mt-20">
+        <div class="text-center mb-10">
+          <span
+            class="accent-border primary-text font-bold text-sm uppercase tracking-wider"
+            data-i18n="skills_title"
+            >مجالات الخبرة</span
+          >
+          <h2
+            class="text-3xl md:text-4xl font-bold mt-3"
+            data-i18n="skills_heading"
+          >
+            ما أتقنه
+          </h2>
+          <div class="w-16 h-0.5 primary-bg mx-auto mt-2"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+          >
+            <i class="fas fa-code primary-text text-3xl mb-3"></i>
+            <h3 class="font-bold text-xl mb-2" data-i18n="skill_fullstack">
+              Full‑Stack (PERN/MERN)
+            </h3>
+            <p class="text-gray-600 text-sm" data-i18n="skill_fullstack_desc">
+              PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST
+              APIs, JWT, Socket.io.
+            </p>
+          </div>
+          <div
+            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+          >
+            <i class="fab fa-python primary-text text-3xl mb-3"></i>
+            <h3 class="font-bold text-xl mb-2" data-i18n="skill_automation">
+              الأتمتة & سحب البيانات
+            </h3>
+            <p class="text-gray-600 text-sm" data-i18n="skill_automation_desc">
+              Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • إنشاء
+              أنابيب scraping دورية وتحليل البيانات.
+            </p>
+          </div>
+          <div
+            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+          >
+            <i class="fas fa-store primary-text text-3xl mb-3"></i>
+            <h3 class="font-bold text-xl mb-2" data-i18n="skill_cms">
+              متاجر ومنصات
+            </h3>
+            <p class="text-gray-600 text-sm" data-i18n="skill_cms_desc">
+              بناء مواقع WordPress، WooCommerce، Shopify، YouCan • تطوير قوالب
+              وربط API وإدارة منتجات.
+            </p>
+          </div>
+        </div>
+        <!-- extra skills tags -->
+        <div class="flex flex-wrap gap-2 justify-center mt-10">
+          <span class="skill-badge">PostgreSQL</span>
+          <span class="skill-badge">MongoDB</span>
+          <span class="skill-badge">Express.js</span>
+          <span class="skill-badge">React.js</span>
+          <span class="skill-badge">Node.js</span>
+          <span class="skill-badge">Python scraping</span>
+          <span class="skill-badge">Shopify API</span>
+          <span class="skill-badge">WordPress</span>
+        </div>
+      </section>
+
+      <!-- المشاريع المميزة -->
+      <section
+        id="projects"
+        class="section-highlight py-16 mt-16 rounded-3xl px-4 md:px-8"
+      >
+        <div class="text-center mb-12">
+          <span
+            class="accent-border primary-text font-bold text-sm uppercase tracking-wider"
+            data-i18n="projects_label"
+            >أعمال منفذة</span
+          >
+          <h2
+            class="text-3xl md:text-4xl font-bold mt-3"
+            data-i18n="projects_heading"
+          >
+            أحدث المشاريع
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- مشروع 1 -->
+          <div
+            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition"
+          >
+            <div
+              class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold"
+            >
+              1
+            </div>
+            <h3 class="font-bold text-xl mt-4" data-i18n="project1_title">
+              نظام إدارة الطلبات
+            </h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="project1_desc">
+              منصة توصيل (PERN) مع تتبع فوري، لوحة تحكم، وأدوار متعددة (عميل،
+              سائق، مدير).
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >React</span
+              >
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >Express</span
+              >
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >Socket.io</span
+              >
+            </div>
+          </div>
+          <!-- مشروع 2 -->
+          <div
+            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition"
+          >
+            <div
+              class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold"
+            >
+              2
+            </div>
+            <h3 class="font-bold text-xl mt-4" data-i18n="project2_title">
+              Scraper تلقائي للأسعار
+            </h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="project2_desc">
+              أداة ببايثون تجمع بيانات المنتجات من Shopify, WooCommerce, YouCan
+              وتخزنها وتنبه لتغير الأسعار.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >Python</span
+              >
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >BeautifulSoup</span
+              >
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >PostgreSQL</span
+              >
+            </div>
+          </div>
+          <!-- مشروع 3 -->
+          <div
+            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition"
+          >
+            <div
+              class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold"
+            >
+              3
+            </div>
+            <h3 class="font-bold text-xl mt-4" data-i18n="project3_title">
+              تطبيق Shopify مخصص
+            </h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="project3_desc">
+              تطبيق مدمج لمزامنة المخزون وتوجيه الطلبات آلياً بين المستودعات
+              باستخدام Webhooks وNode.js.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >Shopify API</span
+              >
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >Node.js</span
+              >
+              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
+                >Webhooks</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- خدمات بناء مواقع ووردبريس وشوبيفاي ويوكان -->
+      <section id="services" class="py-16">
+        <div class="text-center mb-12">
+          <span
+            class="accent-border primary-text font-bold text-sm uppercase tracking-wider"
+            data-i18n="services_label"
+            >خبرات منصات</span
+          >
+          <h2
+            class="text-3xl md:text-4xl font-bold mt-3"
+            data-i18n="services_heading"
+          >
+            بناء مواقع احترافية
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="service-card rounded-2xl p-7 bg-white text-center">
+            <i class="fab fa-wordpress text-4xl primary-text mb-3"></i>
+            <h3 class="font-bold text-xl">WordPress</h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="service_wp">
+              مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.
+            </p>
+          </div>
+          <div class="service-card rounded-2xl p-7 bg-white text-center">
+            <i class="fab fa-shopify text-4xl primary-text mb-3"></i>
+            <h3 class="font-bold text-xl">Shopify</h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="service_shopify">
+              تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.
+            </p>
+          </div>
+          <div class="service-card rounded-2xl p-7 bg-white text-center">
+            <i class="fas fa-chalkboard-user text-4xl primary-text mb-3"></i>
+            <h3 class="font-bold text-xl">YouCan</h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="service_youcan">
+              إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- قسم من أنا ومعلومات التواصل -->
+      <section
+        id="contact"
+        class="bg-black text-white rounded-3xl p-6 md:p-12 mt-8"
+      >
+        <div class="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
+          <div>
+            <h3 class="text-2xl font-bold mb-3" data-i18n="contact_title">
+              تواصل معي
+            </h3>
+            <p
+              class="text-gray-300 text-sm leading-relaxed mb-5"
+              data-i18n="contact_desc"
+            >
+              أبحث عن فرص تعاون في مشاريع متكاملة، تطوير متاجر إلكترونية، أو
+              أتمتة المهام. يمكنك التواصل عبر البريد أو الهاتف أو وسائل التواصل.
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 flex-wrap">
+                <i class="fas fa-envelope primary-text w-5"></i>
+                <span dir="ltr" class="text-sm break-all" id="emailDisplay"
+                  >mohamedbouraada2000@gmail.com</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <i class="fas fa-phone-alt primary-text w-5"></i>
+                <span dir="ltr" class="text-sm" id="phoneDisplay"
+                  >0611185284</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <i class="fas fa-map-marker-alt primary-text w-5"></i>
+                <span data-i18n="contact_location">المغرب – العمل عن بعد</span>
+              </div>
+            </div>
+            <div class="flex gap-4 mt-6">
+              <a
+                href="#"
+                target="_blank"
+                class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
+                id="githubLink"
+                ><i class="fab fa-github text-white"></i
+              ></a>
+              <a
+                href="#"
+                target="_blank"
+                class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
+                id="facebookLink"
+                ><i class="fab fa-facebook-f text-white"></i
+              ></a>
+              <a
+                href="#"
+                target="_blank"
+                class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
+                id="whatsappLink"
+                ><i class="fab fa-whatsapp text-white"></i
+              ></a>
+            </div>
+          </div>
+          <div
+            class="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-gray-700"
+          >
+            <p class="font-mono text-sm text-gray-300" data-i18n="contact_note">
+              📩 البريد الإلكتروني والهاتف متاحان للاستفسار حول مشاريع جديدة أو
+              عروض عمل.
+            </p>
+            <div class="mt-5 flex flex-col gap-2">
+              <a
+                href="mailto:mohamedbouraada2000@gmail.com"
+                class="btn-primary inline-flex justify-center items-center gap-2 rounded-full py-2.5 text-sm font-semibold"
+              >
+                <i class="fas fa-envelope"></i>
+                <span data-i18n="contact_email_btn">أرسل بريداً</span>
+              </a>
+              <a
+                href="https://wa.me/212611185284"
+                class="border border-white/30 hover:bg-white hover:text-black transition rounded-full py-2.5 text-center text-sm font-medium flex items-center justify-center gap-2"
+              >
+                <i class="fab fa-whatsapp"></i>
+                <span data-i18n="contact_whatsapp_btn">واتساب مباشر</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="border-t border-gray-200 py-6 mt-10 text-center text-gray-500 text-xs px-5"
+    >
+      <p>
+        © 2025 <span data-i18n="footer_name">محمد بورعادة</span> —
+        <span data-i18n="footer_rights">جميع الحقوق محفوظة</span> |
+        <span data-i18n="footer_remote">عمل عن بعد حول العالم</span>
+      </p>
+    </footer>
+
+    <!-- أيقونة واتساب ثابتة -->
+    <a
+      href="https://wa.me/212611185284"
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+      // ربط المتغيرات بالعناصر
+      document.getElementById("profileImg").src = PROFILE_IMAGE_URL;
+      document.getElementById("emailDisplay").innerText = EMAIL_ADDRESS;
+      document.getElementById("phoneDisplay").innerText = PHONE_NUMBER;
+      document.getElementById("githubLink").href = GITHUB_LINK;
+      document.getElementById("facebookLink").href = FACEBOOK_LINK;
+      document.getElementById("whatsappLink").href = WHATSAPP_LINK;
+
+      // ========== نظام الترجمة (عربي / إنجليزي / فرنسي) ==========
+      const translations = {
+        ar: {
+          nav_home: "الرئيسية",
+          nav_skills: "المهارات",
+          nav_projects: "المشاريع",
+          nav_services: "الخدمات",
+          nav_contact: "اتصل بي",
+          hero_badge: "مطور ويب متكامل",
+          hero_name: "Mohamed Bouraada",
+          hero_stack: "PERN & MERN Stack",
+          hero_country: "المغرب",
+          hero_desc:
+            "مطور ويب متكامل متخصص في stacks PERN و MERN، مع خبرة في الأتمتة (Python) وسحب البيانات، وبناء مواقع احترافية على WordPress، Shopify، YouCan.",
+          hero_hire: "تواصل معي",
+          hero_projects: "مشاريعي",
+          skills_title: "مجالات الخبرة",
+          skills_heading: "ما أتقنه",
+          skill_fullstack: "Full‑Stack (PERN/MERN)",
+          skill_fullstack_desc:
+            "PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.",
+          skill_automation: "الأتمتة & سحب البيانات",
+          skill_automation_desc:
+            "Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • إنشاء أنابيب scraping دورية وتحليل البيانات.",
+          skill_cms: "متاجر ومنصات",
+          skill_cms_desc:
+            "بناء مواقع WordPress، WooCommerce، Shopify، YouCan • تطوير قوالب وربط API وإدارة منتجات.",
+          projects_label: "أعمال منفذة",
+          projects_heading: "أحدث المشاريع",
+          project1_title: "نظام إدارة الطلبات",
+          project1_desc:
+            "منصة توصيل (PERN) مع تتبع فوري، لوحة تحكم، وأدوار متعددة (عميل، سائق، مدير).",
+          project2_title: "Scraper تلقائي للأسعار",
+          project2_desc:
+            "أداة ببايثون تجمع بيانات المنتجات من Shopify, WooCommerce, YouCan وتخزنها وتنبه لتغير الأسعار.",
+          project3_title: "تطبيق Shopify مخصص",
+          project3_desc:
+            "تطبيق مدمج لمزامنة المخزون وتوجيه الطلبات آلياً بين المستودعات باستخدام Webhooks وNode.js.",
+          services_label: "خبرات منصات",
+          services_heading: "بناء مواقع احترافية",
+          service_wp: "مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.",
+          service_shopify:
+            "تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.",
+          service_youcan:
+            "إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.",
+          contact_title: "تواصل معي",
+          contact_desc:
+            "أبحث عن فرص تعاون في مشاريع متكاملة، تطوير متاجر إلكترونية، أو أتمتة المهام. يمكنك التواصل عبر البريد أو الهاتف أو وسائل التواصل.",
+          contact_location: "المغرب – العمل عن بعد",
+          contact_note:
+            "📩 البريد الإلكتروني والهاتف متاحان للاستفسار حول مشاريع جديدة أو عروض عمل.",
+          contact_email_btn: "أرسل بريداً",
+          contact_whatsapp_btn: "واتساب مباشر",
+          footer_name: "محمد بورعادة",
+          footer_rights: "جميع الحقوق محفوظة",
+          footer_remote: "عمل عن بعد حول العالم",
+        },
+        en: {
+          nav_home: "Home",
+          nav_skills: "Skills",
+          nav_projects: "Projects",
+          nav_services: "Services",
+          nav_contact: "Contact",
+          hero_badge: "Full-Stack Developer",
+          hero_name: "Mohamed Bouraada",
+          hero_stack: "PERN & MERN Stack",
+          hero_country: "Morocco",
+          hero_desc:
+            "Full-stack web developer specialized in PERN & MERN stacks, with experience in automation (Python) and web scraping, building professional websites on WordPress, Shopify, YouCan.",
+          hero_hire: "Hire Me",
+          hero_projects: "My Projects",
+          skills_title: "Expertise",
+          skills_heading: "What I Master",
+          skill_fullstack: "Full‑Stack (PERN/MERN)",
+          skill_fullstack_desc:
+            "PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.",
+          skill_automation: "Automation & Scraping",
+          skill_automation_desc:
+            "Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • building periodic scraping pipelines & data analysis.",
+          skill_cms: "Stores & Platforms",
+          skill_cms_desc:
+            "Building WordPress, WooCommerce, Shopify, YouCan websites • theme customization, API integrations, product management.",
+          projects_label: "Featured Work",
+          projects_heading: "Latest Projects",
+          project1_title: "Order Management System",
+          project1_desc:
+            "Delivery platform (PERN) with real-time tracking, dashboard, multi-role (client, driver, admin).",
+          project2_title: "Automated Price Scraper",
+          project2_desc:
+            "Python tool that gathers product data from Shopify, WooCommerce, YouCan, stores history, and alerts price changes.",
+          project3_title: "Custom Shopify App",
+          project3_desc:
+            "Embedded app for inventory sync and automated order routing between warehouses using Webhooks & Node.js.",
+          services_label: "Platform Expertise",
+          services_heading: "Professional Websites",
+          service_wp:
+            "Responsive websites, WooCommerce, performance, security, API integration.",
+          service_shopify:
+            "Store design, custom apps, product management, secure payment, integrations.",
+          service_youcan:
+            "Arabic e-commerce store, shipping connectors, data extraction, API development.",
+          contact_title: "Contact Me",
+          contact_desc:
+            "Looking for collaboration on full‑stack projects, e‑commerce development, or automation tasks. Reach out via email, phone or social.",
+          contact_location: "Morocco – Remote worldwide",
+          contact_note:
+            "📩 Email and phone are open for inquiries about new projects or job offers.",
+          contact_email_btn: "Send Email",
+          contact_whatsapp_btn: "WhatsApp Direct",
+          footer_name: "Mohamed Bouraada",
+          footer_rights: "All rights reserved",
+          footer_remote: "Remote worldwide",
+        },
+        fr: {
+          nav_home: "Accueil",
+          nav_skills: "Compétences",
+          nav_projects: "Projets",
+          nav_services: "Services",
+          nav_contact: "Contact",
+          hero_badge: "Développeur Full-Stack",
+          hero_name: "Mohamed Bouraada",
+          hero_stack: "PERN & MERN Stack",
+          hero_country: "Maroc",
+          hero_desc:
+            "Développeur full-stack spécialisé dans les stacks PERN et MERN, avec de l'expérience en automatisation (Python) et scraping, création de sites pro sur WordPress, Shopify, YouCan.",
+          hero_hire: "Engagez-moi",
+          hero_projects: "Mes projets",
+          skills_title: "Domaines",
+          skills_heading: "Ce que je maîtrise",
+          skill_fullstack: "Full‑Stack (PERN/MERN)",
+          skill_fullstack_desc:
+            "PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, APIs REST, JWT, Socket.io.",
+          skill_automation: "Automatisation & Scraping",
+          skill_automation_desc:
+            "Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • pipelines de scraping périodique et analyse de données.",
+          skill_cms: "Boutiques & plateformes",
+          skill_cms_desc:
+            "Création de sites WordPress, WooCommerce, Shopify, YouCan • personnalisation de thèmes, intégrations API, gestion produit.",
+          projects_label: "Travaux récents",
+          projects_heading: "Projets récents",
+          project1_title: "Système de gestion de livraison",
+          project1_desc:
+            "Plateforme de livraison (PERN) suivi en temps réel, tableau de bord, rôles multiples.",
+          project2_title: "Scraper automatique de prix",
+          project2_desc:
+            "Outil Python collecte produits Shopify, WooCommerce, YouCan, historique et alertes de prix.",
+          project3_title: "Application Shopify personnalisée",
+          project3_desc:
+            "App intégrée synchronisation inventaire et routage commandes entre entrepôts via Webhooks & Node.js.",
+          services_label: "Expertise plateformes",
+          services_heading: "Sites professionnels",
+          service_wp:
+            "Sites responsives, WooCommerce, performances, sécurité, intégration API.",
+          service_shopify:
+            "Design de boutique, applis sur mesure, gestion produits, paiement sécurisé.",
+          service_youcan:
+            "Boutique e-commerce arabe, connecteurs de livraison, extraction de données, API.",
+          contact_title: "Contactez-moi",
+          contact_desc:
+            "Recherche de collaboration sur projets full‑stack, développement e‑commerce ou automatisation. Contactez-moi par email, téléphone ou réseaux.",
+          contact_location: "Maroc – Travail à distance",
+          contact_note:
+            "📩 Email et téléphone disponibles pour nouvelles missions ou offres.",
+          contact_email_btn: "Envoyer un email",
+          contact_whatsapp_btn: "WhatsApp direct",
+          footer_name: "Mohamed Bouraada",
+          footer_rights: "Tous droits réservés",
+          footer_remote: "Travail à distance mondial",
+        },
+      };
+
+      let currentLang = "ar";
+      function setLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang =
+          lang === "ar" ? "ar" : lang === "en" ? "en" : "fr";
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        const t = translations[lang];
+        if (!t) return;
+        for (const key in t) {
+          const elements = document.querySelectorAll(`[data-i18n="${key}"]`);
+          elements.forEach((el) => {
+            el.innerText = t[key];
+          });
+        }
+        // تحديث النص الخاص بالدولة إذا وجد
+        const countrySpan = document.querySelector(
+          ".bg-gray-100.text-gray-800.text-xs.px-3.py-1.rounded-full.font-medium span:last-child"
+        );
+        if (countrySpan) {
+          if (lang === "ar") countrySpan.innerText = "المغرب";
+          else if (lang === "en") countrySpan.innerText = "Morocco";
+          else countrySpan.innerText = "Maroc";
+        }
+      }
+
+      // إضافة مستمعي أزرار اللغة
+      document.querySelectorAll(".lang-switch button").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const lang = btn.getAttribute("data-lang");
+          if (!lang) return;
+          setLanguage(lang);
+          document.querySelectorAll(".lang-switch button").forEach((b) => {
+            b.classList.remove(
+              "active-lang",
+              "bg-white",
+              "primary-text",
+              "border-primary",
+              "font-semibold"
+            );
+            b.classList.add("border-gray-300", "text-gray-700");
+          });
+          btn.classList.add(
+            "active-lang",
+            "bg-white",
+            "primary-text",
+            "border-primary",
+            "font-semibold"
+          );
+          btn.classList.remove("text-gray-700");
+        });
+      });
+      // تعيين الوضع الافتراضي (عربي)
+      setLanguage("ar");
+    </script>
+  </body>
+</html>
