@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>محمد بورعادة | مطور ويب متكامل</title>
+    <title>مطور ويب متكامل | Mohamed Bouraada</title>
     <!-- Tailwind CSS + Font Awesome + Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -14,7 +14,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -22,8 +22,9 @@
         font-family: "Inter", sans-serif;
       }
       body {
-        background-color: #ffffff;
+        background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
         color: #111111;
+        scroll-behavior: smooth;
       }
       /* custom primary color #6e0b14 */
       .primary-bg {
@@ -38,21 +39,24 @@
       .btn-primary {
         background-color: #6e0b14;
         color: white;
-        transition: all 0.2s ease;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 10px rgba(110, 11, 20, 0.2);
       }
       .btn-primary:hover {
         background-color: #4f0910;
         transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(110, 11, 20, 0.3);
       }
       .btn-outline-primary {
-        border: 1px solid #6e0b14;
+        border: 2px solid #6e0b14;
         color: #6e0b14;
         background: transparent;
-        transition: 0.2s;
+        transition: 0.25s;
       }
       .btn-outline-primary:hover {
         background-color: #6e0b14;
         color: white;
+        box-shadow: 0 4px 12px rgba(110, 11, 20, 0.15);
       }
       .accent-border {
         border-bottom: 3px solid #6e0b14;
@@ -78,12 +82,19 @@
         justify-content: center;
         font-size: 28px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-        transition: 0.2s;
+        transition: 0.25s;
         z-index: 100;
+        animation: pulse-wa 2s infinite;
+      }
+      @keyframes pulse-wa {
+        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+        70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
       }
       .whatsapp-float:hover {
         transform: scale(1.08);
         background-color: #20b859;
+        animation: none;
       }
       .profile-img {
         width: 180px;
@@ -91,7 +102,11 @@
         object-fit: cover;
         border-radius: 50%;
         border: 4px solid #6e0b14;
-        box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15), 0 0 0 8px rgba(110, 11, 20, 0.08);
+        transition: transform 0.3s;
+      }
+      .profile-img:hover {
+        transform: scale(1.03);
       }
       .lang-switch button {
         transition: 0.2s;
@@ -104,19 +119,40 @@
       }
       .skill-badge {
         background-color: #f3f4f6;
-        padding: 0.3rem 1rem;
+        padding: 0.35rem 1rem;
         border-radius: 40px;
         font-size: 0.8rem;
         font-weight: 500;
         color: #1f2937;
+        border: 1px solid #e5e7eb;
+        transition: 0.2s;
+      }
+      .skill-badge:hover {
+        background-color: #e5e7eb;
+        border-color: #d1d5db;
       }
       .service-card {
-        transition: all 0.2s;
+        transition: all 0.25s;
         border: 1px solid #f0f0f0;
+        border-radius: 1.5rem;
+        background: white;
       }
       .service-card:hover {
         border-color: #6e0b14;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px);
+      }
+      .project-card {
+        transition: all 0.25s;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid #f0f0f0;
+        background: white;
+      }
+      .project-card:hover {
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+        border-color: #6e0b14;
+        transform: translateY(-3px);
       }
       footer a {
         transition: color 0.2s;
@@ -130,21 +166,16 @@
           height: 130px;
         }
       }
-      /* additional responsive tweaks */
-      @media (max-width: 640px) {
-        .hero-buttons {
-          justify-content: center;
-        }
-        .hero-description {
-          text-align: center;
-          margin-left: auto;
-          margin-right: auto;
-        }
+      /* Hero background pattern */
+      .hero-pattern {
+        background-image: radial-gradient(rgba(110, 11, 20, 0.05) 1px, transparent 1px);
+        background-size: 30px 30px;
       }
     </style>
   </head>
   <body class="antialiased">
     <script>
+      // ========== ثوابت التواصل ==========
       const PROFILE_IMAGE_URL = "./static/DSC_6815.JPG";
       const GITHUB_LINK =
         "https://github.com/sunrise-112?tab=overview&from=2026-05-01&to=2026-05-06";
@@ -155,48 +186,25 @@
       const PHONE_NUMBER = "0611185284";
     </script>
 
+    <!-- شريط التنقل -->
     <nav
-      class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm"
+      class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200/80 shadow-sm"
     >
       <div
         class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3"
       >
         <!-- الشعار / الاسم -->
-        <div class="text-2xl font-bold tracking-tight">
+        <div class="text-2xl font-extrabold tracking-tight">
+          <span class="primary-text">MB</span>
         </div>
 
         <!-- روابط سطح المكتب -->
-        <div class="hidden md:flex gap-6 text-sm font-medium">
-          <a
-            href="#hero"
-            class="hover:primary-text transition"
-            data-i18n="nav_home"
-            >الرئيسية</a
-          >
-          <a
-            href="#skills"
-            class="hover:primary-text transition"
-            data-i18n="nav_skills"
-            >المهارات</a
-          >
-          <a
-            href="#projects"
-            class="hover:primary-text transition"
-            data-i18n="nav_projects"
-            >المشاريع</a
-          >
-          <a
-            href="#services"
-            class="hover:primary-text transition"
-            data-i18n="nav_services"
-            >الخدمات</a
-          >
-          <a
-            href="#contact"
-            class="hover:primary-text transition"
-            data-i18n="nav_contact"
-            >اتصل بي</a
-          >
+        <div class="hidden md:flex gap-6 text-sm font-semibold">
+          <a href="#hero" class="hover:text-[#6e0b14] transition" data-i18n="nav_home">الرئيسية</a>
+          <a href="#skills" class="hover:text-[#6e0b14] transition" data-i18n="nav_skills">المهارات</a>
+          <a href="#projects" class="hover:text-[#6e0b14] transition" data-i18n="nav_projects">المشاريع</a>
+          <a href="#services" class="hover:text-[#6e0b14] transition" data-i18n="nav_services">الخدمات</a>
+          <a href="#contact" class="hover:text-[#6e0b14] transition" data-i18n="nav_contact">اتصل بي</a>
         </div>
 
         <!-- أزرار اللغة -->
@@ -224,19 +232,19 @@
     </nav>
 
     <main class="max-w-6xl mx-auto px-5 md:px-6 py-6 md:py-12">
-      <!-- Hero section – محسّن استجابة كاملة -->
+      <!-- Hero section -->
       <section
         id="hero"
-        class="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 lg:gap-16 py-8 md:py-12"
+        class="hero-pattern flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 lg:gap-16 py-8 md:py-12"
       >
         <!-- النص -->
         <div class="flex-1 text-center md:text-right">
           <div
-            class="inline-block px-3 py-1 rounded-full bg-gray-100 text-xs font-semibold text-gray-700 mb-4"
+            class="inline-block px-4 py-1.5 rounded-full bg-gray-100/80 backdrop-blur-sm text-xs font-semibold text-gray-700 mb-4 border border-gray-200"
             data-i18n="hero_badge"
           >
-            مطور ويب متكامل
-          </div>
+            مطور ويب متكامل Mohamed Bouraada
+          </div> 
           <h1
             class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight"
           >
@@ -250,7 +258,7 @@
             class="flex flex-wrap justify-center md:justify-start gap-2 mt-4"
           >
             <span
-              class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full font-medium inline-flex items-center gap-1"
+              class="bg-gray-100/80 text-gray-800 text-xs px-3 py-1 rounded-full font-medium inline-flex items-center gap-1 backdrop-blur-sm border border-gray-200"
             >
               <i class="fas fa-map-marker-alt primary-text"></i>🇲🇦
               <span data-i18n="hero_country">المغرب</span>
@@ -269,14 +277,14 @@
           >
             <a
               href="#contact"
-              class="btn-primary px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold shadow-sm transition"
+              class="btn-primary px-6 py-3 rounded-full text-sm font-semibold shadow-lg transition"
             >
               <i class="fas fa-paper-plane ml-1"></i>
               <span data-i18n="hero_hire">تواصل معي</span>
             </a>
             <a
               href="#projects"
-              class="btn-outline-primary px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition"
+              class="btn-outline-primary px-6 py-3 rounded-full text-sm font-semibold transition"
             >
               <span data-i18n="hero_projects">مشاريعي</span>
               <i class="fas fa-arrow-left mr-1"></i>
@@ -313,9 +321,11 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
-            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-lg transition duration-300"
           >
-            <i class="fas fa-code primary-text text-3xl mb-3"></i>
+            <div class="w-12 h-12 rounded-full bg-[#6e0b14]/10 flex items-center justify-center text-[#6e0b14] text-2xl mb-3">
+              <i class="fas fa-code"></i>
+            </div>
             <h3 class="font-bold text-xl mb-2" data-i18n="skill_fullstack">
               Full‑Stack (PERN/MERN)
             </h3>
@@ -325,9 +335,11 @@
             </p>
           </div>
           <div
-            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-lg transition duration-300"
           >
-            <i class="fab fa-python primary-text text-3xl mb-3"></i>
+            <div class="w-12 h-12 rounded-full bg-[#6e0b14]/10 flex items-center justify-center text-[#6e0b14] text-2xl mb-3">
+              <i class="fab fa-python"></i>
+            </div>
             <h3 class="font-bold text-xl mb-2" data-i18n="skill_automation">
               الأتمتة & سحب البيانات
             </h3>
@@ -337,9 +349,11 @@
             </p>
           </div>
           <div
-            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+            class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-lg transition duration-300"
           >
-            <i class="fas fa-store primary-text text-3xl mb-3"></i>
+            <div class="w-12 h-12 rounded-full bg-[#6e0b14]/10 flex items-center justify-center text-[#6e0b14] text-2xl mb-3">
+              <i class="fas fa-store"></i>
+            </div>
             <h3 class="font-bold text-xl mb-2" data-i18n="skill_cms">
               متاجر ومنصات
             </h3>
@@ -362,7 +376,7 @@
         </div>
       </section>
 
-      <!-- المشاريع المميزة -->
+      <!-- المشاريع المميزة (ديناميكية) -->
       <section
         id="projects"
         class="section-highlight py-16 mt-16 rounded-3xl px-4 md:px-8"
@@ -380,91 +394,12 @@
             أحدث المشاريع
           </h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- مشروع 1 -->
-          <div
-            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition"
-          >
-            <div
-              class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold"
-            >
-              1
-            </div>
-            <h3 class="font-bold text-xl mt-4" data-i18n="project1_title">
-              نظام إدارة الطلبات
-            </h3>
-            <p class="text-gray-500 text-sm mt-2" data-i18n="project1_desc">
-              منصة توصيل (PERN) مع تتبع فوري، لوحة تحكم، وأدوار متعددة (عميل،
-              سائق، مدير).
-            </p>
-            <div class="flex flex-wrap gap-2 mt-4">
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >React</span
-              >
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >Express</span
-              >
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >Socket.io</span
-              >
-            </div>
-          </div>
-          <!-- مشروع 2 -->
-          <div
-            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition"
-          >
-            <div
-              class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold"
-            >
-              2
-            </div>
-            <h3 class="font-bold text-xl mt-4" data-i18n="project2_title">
-              Scraper تلقائي للأسعار
-            </h3>
-            <p class="text-gray-500 text-sm mt-2" data-i18n="project2_desc">
-              أداة ببايثون تجمع بيانات المنتجات من Shopify, WooCommerce, YouCan
-              وتخزنها وتنبه لتغير الأسعار.
-            </p>
-            <div class="flex flex-wrap gap-2 mt-4">
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >Python</span
-              >
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >BeautifulSoup</span
-              >
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >PostgreSQL</span
-              >
-            </div>
-          </div>
-          <!-- مشروع 3 -->
-          <div
-            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition"
-          >
-            <div
-              class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold"
-            >
-              3
-            </div>
-            <h3 class="font-bold text-xl mt-4" data-i18n="project3_title">
-              تطبيق Shopify مخصص
-            </h3>
-            <p class="text-gray-500 text-sm mt-2" data-i18n="project3_desc">
-              تطبيق مدمج لمزامنة المخزون وتوجيه الطلبات آلياً بين المستودعات
-              باستخدام Webhooks وNode.js.
-            </p>
-            <div class="flex flex-wrap gap-2 mt-4">
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >Shopify API</span
-              >
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >Node.js</span
-              >
-              <span class="text-[11px] bg-gray-100 px-2 py-1 rounded"
-                >Webhooks</span
-              >
-            </div>
-          </div>
+        <!-- الشبكة التي سيتم ملؤها ديناميكيًا -->
+        <div
+          id="projectsGrid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <!-- تولد عبر JavaScript -->
         </div>
       </section>
 
@@ -485,21 +420,27 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div class="service-card rounded-2xl p-7 bg-white text-center">
-            <i class="fab fa-wordpress text-4xl primary-text mb-3"></i>
+            <div class="w-16 h-16 mx-auto rounded-full bg-[#6e0b14]/10 flex items-center justify-center mb-4">
+              <i class="fab fa-wordpress text-3xl primary-text"></i>
+            </div>
             <h3 class="font-bold text-xl">WordPress</h3>
             <p class="text-gray-500 text-sm mt-2" data-i18n="service_wp">
               مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.
             </p>
           </div>
           <div class="service-card rounded-2xl p-7 bg-white text-center">
-            <i class="fab fa-shopify text-4xl primary-text mb-3"></i>
+            <div class="w-16 h-16 mx-auto rounded-full bg-[#6e0b14]/10 flex items-center justify-center mb-4">
+              <i class="fab fa-shopify text-3xl primary-text"></i>
+            </div>
             <h3 class="font-bold text-xl">Shopify</h3>
             <p class="text-gray-500 text-sm mt-2" data-i18n="service_shopify">
               تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.
             </p>
           </div>
           <div class="service-card rounded-2xl p-7 bg-white text-center">
-            <i class="fas fa-chalkboard-user text-4xl primary-text mb-3"></i>
+            <div class="w-16 h-16 mx-auto rounded-full bg-[#6e0b14]/10 flex items-center justify-center mb-4">
+              <i class="fas fa-chalkboard-user text-3xl primary-text"></i>
+            </div>
             <h3 class="font-bold text-xl">YouCan</h3>
             <p class="text-gray-500 text-sm mt-2" data-i18n="service_youcan">
               إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.
@@ -511,7 +452,7 @@
       <!-- قسم من أنا ومعلومات التواصل -->
       <section
         id="contact"
-        class="bg-black text-white rounded-3xl p-6 md:p-12 mt-8"
+        class="bg-gradient-to-br from-gray-900 to-black text-white rounded-3xl p-6 md:p-12 mt-8 shadow-2xl"
       >
         <div class="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
           <div>
@@ -547,21 +488,21 @@
               <a
                 href="#"
                 target="_blank"
-                class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
+                class="bg-gray-800 hover:bg-[#6e0b14] p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
                 id="githubLink"
                 ><i class="fab fa-github text-white"></i
               ></a>
               <a
                 href="#"
                 target="_blank"
-                class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
+                class="bg-gray-800 hover:bg-[#6e0b14] p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
                 id="facebookLink"
                 ><i class="fab fa-facebook-f text-white"></i
               ></a>
               <a
                 href="#"
                 target="_blank"
-                class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
+                class="bg-gray-800 hover:bg-[#6e0b14] p-2 rounded-full w-10 h-10 flex items-center justify-center transition"
                 id="whatsappLink"
                 ><i class="fab fa-whatsapp text-white"></i
               ></a>
@@ -616,7 +557,7 @@
     </a>
 
     <script>
-      // ربط المتغيرات بالعناصر
+      // ========== ربط المتغيرات بالعناصر ==========
       document.getElementById("profileImg").src = PROFILE_IMAGE_URL;
       document.getElementById("emailDisplay").innerText = EMAIL_ADDRESS;
       document.getElementById("phoneDisplay").innerText = PHONE_NUMBER;
@@ -624,7 +565,51 @@
       document.getElementById("facebookLink").href = FACEBOOK_LINK;
       document.getElementById("whatsappLink").href = WHATSAPP_LINK;
 
-      // ========== نظام الترجمة (عربي / إنجليزي / فرنسي) ==========
+      // ========== مصفوفة المشاريع (يمكنك إضافة / حذف مشاريع) ==========
+      const projects = [
+        {
+          number: 1,
+          titleKey: "project1_title",
+          descKey: "project1_desc",
+          tags: ["React", "Express", "Socket.io"]
+        },
+        {
+          number: 2,
+          titleKey: "project2_title",
+          descKey: "project2_desc",
+          tags: ["Python", "BeautifulSoup", "PostgreSQL"]
+        },
+        {
+          number: 3,
+          titleKey: "project3_title",
+          descKey: "project3_desc",
+          tags: ["Shopify API", "Node.js", "Webhooks"]
+        }
+        // يمكنك إضافة المزيد هنا مع مفاتيح الترجمة المقابلة
+      ];
+
+      function renderProjects() {
+        const grid = document.getElementById("projectsGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        projects.forEach((proj) => {
+          const card = document.createElement("div");
+          card.className = "project-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm";
+          card.innerHTML = `
+            <div class="primary-bg w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold mb-4">
+              ${proj.number}
+            </div>
+            <h3 class="font-bold text-xl mt-4" data-i18n="${proj.titleKey}"></h3>
+            <p class="text-gray-500 text-sm mt-2" data-i18n="${proj.descKey}"></p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              ${proj.tags.map(tag => `<span class="text-[11px] bg-gray-100 px-2 py-1 rounded-full">${tag}</span>`).join('')}
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // ========== نظام الترجمة ==========
       const translations = {
         ar: {
           nav_home: "الرئيسية",
@@ -811,7 +796,7 @@
         }
         // تحديث النص الخاص بالدولة إذا وجد
         const countrySpan = document.querySelector(
-          ".bg-gray-100.text-gray-800.text-xs.px-3.py-1.rounded-full.font-medium span:last-child"
+          ".bg-gray-100\\/80.text-gray-800.text-xs.px-3.py-1.rounded-full.font-medium span:last-child"
         );
         if (countrySpan) {
           if (lang === "ar") countrySpan.innerText = "المغرب";
@@ -846,8 +831,12 @@
           btn.classList.remove("text-gray-700");
         });
       });
-      // تعيين الوضع الافتراضي (عربي)
-      setLanguage("ar");
+
+      // التهيئة الأولية
+      document.addEventListener("DOMContentLoaded", () => {
+        renderProjects();
+        setLanguage("ar");
+      });
     </script>
   </body>
 </html>
