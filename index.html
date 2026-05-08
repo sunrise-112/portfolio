@@ -1,606 +1,1267 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <title>Mohamed Bouraada — Full‑Stack Developer</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Mohamed Bouraada — Full‑Stack Developer</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            blood:  { DEFAULT:'#8b0f1e', dark:'#5c0a14', light:'#b81827' },
-            ink:    '#0a0a0b',
-            paper:  '#f7f4f0',
-            cream:  '#ede9e3',
-            muted:  '#7a7470',
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              blood: { DEFAULT: "#8b0f1e", dark: "#5c0a14", light: "#b81827" },
+              ink: "#0a0a0b",
+              paper: "#f7f4f0",
+              cream: "#ede9e3",
+              muted: "#7a7470",
+            },
+            fontFamily: {
+              display: ["Syne", "sans-serif"],
+              body: ['"DM Sans"', "sans-serif"],
+              mono: ['"IBM Plex Mono"', "monospace"],
+            },
           },
-          fontFamily: {
-            display: ['Syne','sans-serif'],
-            body:    ['"DM Sans"','sans-serif'],
-            mono:    ['"IBM Plex Mono"','monospace'],
-          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f7f4f0;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #8b0f1e;
+        border-radius: 2px;
+      }
+
+      /* Noise overlay */
+      .noise {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+
+      /* Nav link underline animation */
+      .nav-link {
+        position: relative;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #7a7470;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #8b0f1e;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-link:hover {
+        color: #8b0f1e;
+      }
+      .nav-link:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* Scroll fade */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.show {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .reveal:nth-child(3) {
+        transition-delay: 0.2s;
+      }
+
+      /* Skill card bottom line */
+      .skill-c {
+        position: relative;
+        overflow: hidden;
+      }
+      .skill-c::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #b81827;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .skill-c:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* Project card left accent */
+      .proj-c {
+        position: relative;
+        overflow: hidden;
+      }
+      .proj-c::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 0;
+        background: #8b0f1e;
+        transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .proj-c:hover::before {
+        height: 100%;
+      }
+
+      /* Service card hover */
+      .serv-c {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .serv-c:hover {
+        border-color: #8b0f1e !important;
+        transform: translateY(-6px);
+        box-shadow: 0 24px 48px rgba(139, 15, 30, 0.08);
+      }
+
+      /* Button hover lift */
+      .btn-blood {
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .btn-blood:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 #b81827;
+      }
+      .btn-ghost {
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .btn-ghost:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 #7a7470;
+      }
+      .btn-white-lift {
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .btn-white-lift:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      /* Hero image frame decorators */
+      .hero-frame {
+        position: relative;
+      }
+      .hero-frame::before {
+        content: "";
+        position: absolute;
+        inset: -12px;
+        border: 1px solid rgba(139, 15, 30, 0.18);
+        border-radius: 4px;
+        z-index: -1;
+      }
+      .hero-frame::after {
+        content: "";
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        right: -16px;
+        bottom: -16px;
+        background: #8b0f1e;
+        opacity: 0.07;
+        border-radius: 4px;
+        z-index: -2;
+      }
+
+      /* WhatsApp float pulse */
+      .wa-float {
+        animation: waPulse 2.5s ease-in-out infinite;
+        transition: all 0.25s;
+      }
+      .wa-float:hover {
+        animation: none;
+        transform: scale(1.1) translateY(-2px);
+      }
+      @keyframes waPulse {
+        0%,
+        100% {
+          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        }
+        50% {
+          box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7),
+            0 0 0 12px rgba(37, 211, 102, 0.1);
         }
       }
-    }
-  </script>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-  <style>
-    *,*::before,*::after{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'DM Sans',sans-serif;overflow-x:hidden;}
-    ::-webkit-scrollbar{width:4px;}
-    ::-webkit-scrollbar-track{background:#f7f4f0;}
-    ::-webkit-scrollbar-thumb{background:#8b0f1e;border-radius:2px;}
-
-    /* Noise overlay */
-    .noise{background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;}
-
-    /* Nav link underline animation */
-    .nav-link{position:relative;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#7a7470;text-decoration:none;transition:color .2s;}
-    .nav-link::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:#8b0f1e;transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1);}
-    .nav-link:hover{color:#8b0f1e;}
-    .nav-link:hover::after{transform:scaleX(1);}
-
-    /* Scroll fade */
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
-    .reveal.show{opacity:1;transform:none;}
-    .reveal:nth-child(2){transition-delay:.1s;}
-    .reveal:nth-child(3){transition-delay:.2s;}
-
-    /* Skill card bottom line */
-    .skill-c{position:relative;overflow:hidden;}
-    .skill-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#b81827;transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1);}
-    .skill-c:hover::after{transform:scaleX(1);}
-
-    /* Project card left accent */
-    .proj-c{position:relative;overflow:hidden;}
-    .proj-c::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:#8b0f1e;transition:height .4s cubic-bezier(.16,1,.3,1);}
-    .proj-c:hover::before{height:100%;}
-
-    /* Service card hover */
-    .serv-c{transition:all .3s cubic-bezier(.16,1,.3,1);}
-    .serv-c:hover{border-color:#8b0f1e !important;transform:translateY(-6px);box-shadow:0 24px 48px rgba(139,15,30,.08);}
-
-    /* Button hover lift */
-    .btn-blood{transition:all .25s cubic-bezier(.16,1,.3,1);}
-    .btn-blood:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #b81827;}
-    .btn-ghost{transition:all .25s cubic-bezier(.16,1,.3,1);}
-    .btn-ghost:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #7a7470;}
-    .btn-white-lift{transition:all .25s cubic-bezier(.16,1,.3,1);}
-    .btn-white-lift:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 rgba(255,255,255,.2);}
-
-    /* Hero image frame decorators */
-    .hero-frame{position:relative;}
-    .hero-frame::before{content:'';position:absolute;inset:-12px;border:1px solid rgba(139,15,30,.18);border-radius:4px;z-index:-1;}
-    .hero-frame::after{content:'';position:absolute;top:16px;left:16px;right:-16px;bottom:-16px;background:#8b0f1e;opacity:.07;border-radius:4px;z-index:-2;}
-
-    /* WhatsApp float pulse */
-    .wa-float{animation:waPulse 2.5s ease-in-out infinite;transition:all .25s;}
-    .wa-float:hover{animation:none;transform:scale(1.1) translateY(-2px);}
-    @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4);}50%{box-shadow:0 4px 30px rgba(37,211,102,.7),0 0 0 12px rgba(37,211,102,.1);}}
-
-    /* Mobile menu transition */
-    #mobileMenu{transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1);}
-    #mobileMenu.menu-hide{opacity:0;transform:translateY(-8px);pointer-events:none;}
-    #mobileMenu.menu-show{opacity:1;transform:none;pointer-events:auto;}
-
-    /* Custom cursor */
-    @media(pointer:fine){body{cursor:none;}.cursor-dot{pointer-events:none;position:fixed;top:0;left:0;z-index:9999;width:10px;height:10px;background:#8b0f1e;border-radius:50%;mix-blend-mode:multiply;transition:transform .08s;}}
-  </style>
-</head>
-
-<body class="bg-paper text-ink antialiased">
-
-  <!-- Grain overlay -->
-  <div class="noise fixed inset-0 z-[9998] pointer-events-none opacity-40"></div>
-
-  <!-- Custom cursor -->
-  <div class="cursor-dot hidden md:block" id="cursorDot"></div>
-
-  <!-- ═══════════ NAVBAR ═══════════ -->
-  <nav class="fixed top-0 inset-x-0 z-50 bg-paper/85 backdrop-blur-xl border-b border-black/8 h-16 px-5 sm:px-8 lg:px-14 flex items-center justify-between gap-4">
-
-    <span class="font-display font-extrabold text-2xl text-blood tracking-tight leading-none">MB.</span>
-
-    <!-- Desktop nav -->
-    <ul class="hidden md:flex items-center gap-8 list-none">
-      <li><a href="#hero"     class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
-      <li><a href="#skills"   class="nav-link" data-i18n="nav_skills">المهارات</a></li>
-      <li><a href="#projects" class="nav-link" data-i18n="nav_projects">المشاريع</a></li>
-      <li><a href="#services" class="nav-link" data-i18n="nav_services">الخدمات</a></li>
-      <li><a href="#contact"  class="nav-link" data-i18n="nav_contact">اتصل بي</a></li>
-    </ul>
-
-    <div class="flex items-center gap-2">
-      <!-- Language buttons -->
-      <div class="flex gap-1" id="langSwitch">
-        <button data-lang="ar" class="lang-btn font-mono text-[.6rem] tracking-widest uppercase px-3 py-1 rounded-sm border transition-all bg-blood text-white border-blood">AR</button>
-        <button data-lang="en" class="lang-btn font-mono text-[.6rem] tracking-widest uppercase px-3 py-1 rounded-sm border border-black/15 text-muted hover:bg-blood hover:text-white hover:border-blood transition-all">EN</button>
-        <button data-lang="fr" class="lang-btn font-mono text-[.6rem] tracking-widest uppercase px-3 py-1 rounded-sm border border-black/15 text-muted hover:bg-blood hover:text-white hover:border-blood transition-all">FR</button>
-      </div>
-      <!-- Hamburger -->
-      <button id="hamburger" class="md:hidden flex flex-col gap-[5px] justify-center items-end w-9 h-9 ml-1" aria-label="Toggle menu">
-        <span class="block h-px bg-ink transition-all w-5" id="hb1"></span>
-        <span class="block h-px bg-ink transition-all w-5" id="hb2"></span>
-        <span class="block h-px bg-blood transition-all w-3"  id="hb3"></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="menu-hide fixed top-16 inset-x-0 z-40 bg-paper/96 backdrop-blur-xl border-b border-black/8 px-5 py-4 flex flex-col gap-1 md:hidden">
-    <a href="#hero"     data-i18n="nav_home"     class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors">الرئيسية</a>
-    <a href="#skills"   data-i18n="nav_skills"   class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors">المهارات</a>
-    <a href="#projects" data-i18n="nav_projects" class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors">المشاريع</a>
-    <a href="#services" data-i18n="nav_services" class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors">الخدمات</a>
-    <a href="#contact"  data-i18n="nav_contact"  class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 transition-colors">اتصل بي</a>
-  </div>
-
-  <!-- ═══════════ HERO ═══════════ -->
-  <section id="hero" class="relative min-h-screen pt-16 flex items-center overflow-hidden"
-    style="background-image:radial-gradient(rgba(139,15,30,.065) 1px,transparent 1px);background-size:28px 28px;">
-
-    <!-- Giant decorative letters -->
-    <span class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 font-display font-extrabold leading-none select-none pointer-events-none text-transparent"
-          style="font-size:clamp(10rem,28vw,26rem);-webkit-text-stroke:1px rgba(139,15,30,.055);"
-          aria-hidden="true">MB</span>
-
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-14 py-16 md:py-0 grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-10 lg:gap-20 items-center">
-
-      <!-- Text -->
-      <div class="flex flex-col gap-5 text-center md:text-right order-2 md:order-1 reveal">
-
-        <div class="flex items-center justify-center md:justify-end gap-2 font-mono text-[.63rem] tracking-[.18em] uppercase text-blood">
-          <span class="inline-block w-5 h-px bg-blood"></span>
-          <span data-i18n="hero_badge">مطور ويب متكامل</span>
-        </div>
-
-        <h1 class="font-display font-extrabold leading-[.93] tracking-tight text-ink"
-            style="font-size:clamp(3rem,8vw,5.5rem);">
-          Mohamed<br/>
-          <span class="text-blood">Bouraada</span>
-        </h1>
-
-        <div class="flex justify-center md:justify-end">
-          <span class="inline-flex items-center gap-2 font-mono text-xs tracking-wide uppercase bg-cream border border-black/10 text-muted px-3 py-1.5 rounded-sm">
-            <i class="fas fa-map-marker-alt text-blood text-[.6rem]"></i>
-            <span>🇲🇦</span>
-            <span data-i18n="hero_country">المغرب</span>
-          </span>
-        </div>
-
-        <p class="text-muted leading-relaxed text-sm sm:text-base max-w-prose mx-auto md:mx-0" data-i18n="hero_desc">
-          مطور ويب متكامل متخصص في stacks PERN و MERN، مع خبرة في الأتمتة (Python) وسحب البيانات، وبناء مواقع احترافية على WordPress، Shopify، YouCan.
-        </p>
-
-        <div class="flex flex-wrap gap-3 justify-center md:justify-end mt-1">
-          <a href="#contact"
-             class="btn-blood inline-flex items-center gap-2 font-mono text-[.72rem] tracking-widest uppercase px-6 py-3 bg-blood text-white border border-blood rounded-sm">
-            <i class="fas fa-paper-plane text-[.65rem]"></i>
-            <span data-i18n="hero_hire">تواصل معي</span>
-          </a>
-          <a href="#projects"
-             class="btn-ghost inline-flex items-center gap-2 font-mono text-[.72rem] tracking-widest uppercase px-6 py-3 bg-transparent text-ink border border-ink rounded-sm hover:bg-ink hover:text-white">
-            <span data-i18n="hero_projects">مشاريعي</span>
-            <i class="fas fa-arrow-left text-[.65rem]"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Image -->
-      <div class="order-1 md:order-2 flex justify-center reveal">
-        <div class="hero-frame" style="width:min(280px,72vw);aspect-ratio:3/4;">
-          <img id="profileImg"
-               src="https://randomuser.me/api/portraits/men/32.jpg"
-               alt="Mohamed Bouraada"
-               class="w-full h-full object-cover rounded-sm block" style="filter:grayscale(15%) contrast(1.05);"/>
-          <!-- Badge -->
-          <div class="absolute -bottom-5 -right-4 sm:-bottom-6 sm:-left-8 bg-ink text-white rounded-sm font-mono leading-relaxed shadow-2xl"
-               style="padding:.75rem 1rem;font-size:.6rem;min-width:8rem;">
-            <strong class="block font-display font-extrabold text-blood tracking-tight leading-none mb-1" style="font-size:1.1rem;">PERN<br/>MERN</strong>
-            🇲🇦 Morocco · Remote
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ SKILLS ═══════════ -->
-  <section id="skills" class="bg-ink text-white py-20 md:py-28 px-5 sm:px-8 lg:px-14 relative overflow-hidden">
-    <!-- Dot pattern bg -->
-    <div class="absolute inset-0 pointer-events-none opacity-[.07]"
-         style="background-image:radial-gradient(rgba(139,15,30,.5) 1px,transparent 1px);background-size:32px 32px;"></div>
-
-    <div class="max-w-7xl mx-auto relative z-10">
-
-      <!-- Section header -->
-      <div class="flex flex-wrap items-baseline gap-3 mb-12">
-        <span class="font-mono text-[.63rem] tracking-[.18em] uppercase text-blood/75 flex items-center gap-2">
-          <span class="inline-block w-5 h-px bg-blood/60"></span>
-          <span data-i18n="skills_title">مجالات الخبرة</span>
-        </span>
-        <h2 class="font-display font-extrabold tracking-tight leading-none text-white"
-            style="font-size:clamp(2rem,5vw,3.5rem);" data-i18n="skills_heading">ما أتقنه</h2>
-        <div class="flex-1 hidden sm:block h-px bg-white/8 self-center"></div>
-      </div>
-
-      <!-- Skill cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded overflow-hidden mb-10">
-        <div class="skill-c bg-ink p-7 sm:p-8 hover:bg-white/[.03] transition-colors reveal">
-          <div class="text-blood text-3xl mb-5"><i class="fas fa-code"></i></div>
-          <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight" data-i18n="skill_fullstack">Full‑Stack (PERN/MERN)</h3>
-          <p class="text-white/40 text-sm leading-relaxed" data-i18n="skill_fullstack_desc">PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.</p>
-        </div>
-        <div class="skill-c bg-ink p-7 sm:p-8 hover:bg-white/[.03] transition-colors reveal">
-          <div class="text-blood text-3xl mb-5"><i class="fab fa-python"></i></div>
-          <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight" data-i18n="skill_automation">الأتمتة & سحب البيانات</h3>
-          <p class="text-white/40 text-sm leading-relaxed" data-i18n="skill_automation_desc">Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • أنابيب scraping دورية وتحليل البيانات.</p>
-        </div>
-        <div class="skill-c bg-ink p-7 sm:p-8 hover:bg-white/[.03] transition-colors sm:col-span-2 lg:col-span-1 reveal">
-          <div class="text-blood text-3xl mb-5"><i class="fas fa-store"></i></div>
-          <h3 class="font-display font-bold text-lg text-white mb-2 tracking-tight" data-i18n="skill_cms">متاجر ومنصات</h3>
-          <p class="text-white/40 text-sm leading-relaxed" data-i18n="skill_cms_desc">WordPress، WooCommerce، Shopify، YouCan • قوالب، API، إدارة منتجات.</p>
-        </div>
-      </div>
-
-      <!-- Tech chips -->
-      <div class="flex flex-wrap gap-2">
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">PostgreSQL</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">MongoDB</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">Express.js</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">React.js</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">Node.js</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">Python Scraping</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">Shopify API</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">WordPress</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">Socket.io</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">JWT</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">Puppeteer</span>
-        <span class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default">REST APIs</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ PROJECTS ═══════════ -->
-  <section id="projects" class="bg-cream py-20 md:py-28 px-5 sm:px-8 lg:px-14">
-    <div class="max-w-7xl mx-auto">
-
-      <div class="flex flex-wrap items-baseline gap-3 mb-12">
-        <span class="font-mono text-[.63rem] tracking-[.18em] uppercase text-blood flex items-center gap-2">
-          <span class="inline-block w-5 h-px bg-blood"></span>
-          <span data-i18n="projects_label">أعمال منفذة</span>
-        </span>
-        <h2 class="font-display font-extrabold tracking-tight leading-none"
-            style="font-size:clamp(2rem,5vw,3.5rem);" data-i18n="projects_heading">أحدث المشاريع</h2>
-        <div class="flex-1 hidden sm:block h-px bg-black/10 self-center"></div>
-      </div>
-
-      <div id="projectsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-    </div>
-  </section>
-
-  <!-- ═══════════ SERVICES ═══════════ -->
-  <section id="services" class="bg-paper py-20 md:py-28 px-5 sm:px-8 lg:px-14 relative overflow-hidden">
-
-    <!-- Ghost watermark -->
-    <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-extrabold text-transparent select-none pointer-events-none whitespace-nowrap"
-          style="font-size:clamp(5rem,18vw,17rem);-webkit-text-stroke:1px rgba(0,0,0,.03);"
-          aria-hidden="true">SERVICES</span>
-
-    <div class="max-w-7xl mx-auto relative z-10">
-
-      <div class="flex flex-wrap items-baseline gap-3 mb-12">
-        <span class="font-mono text-[.63rem] tracking-[.18em] uppercase text-blood flex items-center gap-2">
-          <span class="inline-block w-5 h-px bg-blood"></span>
-          <span data-i18n="services_label">خبرات منصات</span>
-        </span>
-        <h2 class="font-display font-extrabold tracking-tight leading-none"
-            style="font-size:clamp(2rem,5vw,3.5rem);" data-i18n="services_heading">بناء مواقع احترافية</h2>
-        <div class="flex-1 hidden sm:block h-px bg-black/10 self-center"></div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
-        <div class="serv-c bg-white border border-black/8 rounded-sm p-7 sm:p-8 flex flex-col gap-4 reveal">
-          <div class="w-12 h-12 bg-blood/8 text-blood flex items-center justify-center rounded-sm text-xl shrink-0">
-            <i class="fab fa-wordpress"></i>
-          </div>
-          <div class="font-display font-bold text-xl tracking-tight">WordPress</div>
-          <div class="text-muted text-sm leading-relaxed" data-i18n="service_wp">مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.</div>
-        </div>
-
-        <div class="serv-c bg-white border border-black/8 rounded-sm p-7 sm:p-8 flex flex-col gap-4 reveal">
-          <div class="w-12 h-12 bg-blood/8 text-blood flex items-center justify-center rounded-sm text-xl shrink-0">
-            <i class="fab fa-shopify"></i>
-          </div>
-          <div class="font-display font-bold text-xl tracking-tight">Shopify</div>
-          <div class="text-muted text-sm leading-relaxed" data-i18n="service_shopify">تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.</div>
-        </div>
-
-        <div class="serv-c bg-white border border-black/8 rounded-sm p-7 sm:p-8 flex flex-col gap-4 reveal">
-          <div class="w-12 h-12 bg-blood/8 text-blood flex items-center justify-center rounded-sm text-xl shrink-0">
-            <i class="fas fa-chalkboard-user"></i>
-          </div>
-          <div class="font-display font-bold text-xl tracking-tight">YouCan</div>
-          <div class="text-muted text-sm leading-relaxed" data-i18n="service_youcan">إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ CONTACT ═══════════ -->
-  <section id="contact" class="bg-blood py-20 md:py-28 px-5 sm:px-8 lg:px-14">
-    <div class="max-w-7xl mx-auto">
-
-      <div class="flex flex-wrap items-baseline gap-3 mb-12">
-        <span class="font-mono text-[.63rem] tracking-[.18em] uppercase text-white/45 flex items-center gap-2">
-          <span class="inline-block w-5 h-px bg-white/40"></span>
-          <span data-i18n="nav_contact">اتصل بي</span>
-        </span>
-        <h2 class="font-display font-extrabold tracking-tight leading-none text-white"
-            style="font-size:clamp(2rem,5vw,3.5rem);" data-i18n="contact_title">تواصل معي</h2>
-        <div class="flex-1 hidden sm:block h-px bg-white/15 self-center"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
-
-        <!-- Info -->
-        <div class="flex flex-col gap-5">
-          <p class="text-white/60 text-sm leading-relaxed max-w-[42ch]" data-i18n="contact_desc">
-            أبحث عن فرص تعاون في مشاريع متكاملة، تطوير متاجر إلكترونية، أو أتمتة المهام.
-          </p>
-          <div class="flex flex-col gap-3">
-            <div class="flex items-center gap-3 font-mono text-[.76rem] text-white/60">
-              <i class="fas fa-envelope text-white/30 w-4 text-center text-sm"></i>
-              <span dir="ltr" id="emailDisplay">mohamedbouraada2000@gmail.com</span>
-            </div>
-            <div class="flex items-center gap-3 font-mono text-[.76rem] text-white/60">
-              <i class="fas fa-phone-alt text-white/30 w-4 text-center text-sm"></i>
-              <span dir="ltr" id="phoneDisplay">0611185284</span>
-            </div>
-            <div class="flex items-center gap-3 font-mono text-[.76rem] text-white/60">
-              <i class="fas fa-map-marker-alt text-white/30 w-4 text-center text-sm"></i>
-              <span data-i18n="contact_location">المغرب – العمل عن بعد</span>
-            </div>
-          </div>
-          <div class="flex gap-3 mt-1">
-            <a id="githubLink"   href="#" target="_blank"
-               class="w-10 h-10 flex items-center justify-center border border-white/20 text-white/50 hover:bg-white/12 hover:text-white hover:border-white/45 rounded-sm transition-all text-sm"><i class="fab fa-github"></i></a>
-            <a id="facebookLink" href="#" target="_blank"
-               class="w-10 h-10 flex items-center justify-center border border-white/20 text-white/50 hover:bg-white/12 hover:text-white hover:border-white/45 rounded-sm transition-all text-sm"><i class="fab fa-facebook-f"></i></a>
-            <a id="whatsappLink" href="#" target="_blank"
-               class="w-10 h-10 flex items-center justify-center border border-white/20 text-white/50 hover:bg-white/12 hover:text-white hover:border-white/45 rounded-sm transition-all text-sm"><i class="fab fa-whatsapp"></i></a>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="bg-white/8 border border-white/15 rounded-sm p-7 flex flex-col gap-4 backdrop-blur-sm">
-          <p class="font-mono text-[.72rem] text-white/50 leading-relaxed" data-i18n="contact_note">
-            📩 البريد الإلكتروني والهاتف متاحان للاستفسار حول مشاريع جديدة أو عروض عمل.
-          </p>
-          <a href="mailto:mohamedbouraada2000@gmail.com"
-             class="btn-white-lift inline-flex items-center justify-center gap-2 font-mono text-[.7rem] tracking-widest uppercase px-6 py-3 bg-white text-blood border border-white rounded-sm font-medium hover:bg-ink hover:border-ink hover:text-white">
-            <i class="fas fa-envelope text-[.65rem]"></i>
-            <span data-i18n="contact_email_btn">أرسل بريداً</span>
-          </a>
-          <a href="https://wa.me/212611185284"
-             class="inline-flex items-center justify-center gap-2 font-mono text-[.7rem] tracking-widest uppercase px-6 py-3 bg-transparent text-white/70 border border-white/28 rounded-sm transition-all hover:bg-white/10 hover:border-white/55 hover:text-white">
-            <i class="fab fa-whatsapp text-[.65rem]"></i>
-            <span data-i18n="contact_whatsapp_btn">واتساب مباشر</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="bg-ink text-white/28 py-5 px-5 sm:px-8 lg:px-14 flex flex-wrap items-center justify-between gap-3">
-    <span class="font-display font-extrabold text-xl text-blood tracking-tight">MB.</span>
-    <p class="font-mono text-[.6rem] tracking-wide text-center sm:text-right">
-      © 2025 <span data-i18n="footer_name">Mohamed Bouraada</span>
-      — <span data-i18n="footer_rights">جميع الحقوق محفوظة</span>
-      · <span data-i18n="footer_remote">عمل عن بعد حول العالم</span>
-    </p>
-  </footer>
-
-  <!-- WhatsApp Float -->
-  <a href="https://wa.me/212611185284" target="_blank" rel="noopener noreferrer"
-     class="wa-float fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25d366] hover:bg-[#1eb854] text-white rounded-full flex items-center justify-center text-2xl shadow-lg">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <!-- ═══════════ SCRIPTS ═══════════ -->
-  <script>
-    /* ── CONSTANTS ── */
-    const PROFILE_IMAGE_URL = './static/DSC_6815.JPG';
-    const GITHUB_LINK    = 'https://github.com/sunrise-112?tab=overview&from=2026-05-01&to=2026-05-06';
-    const FACEBOOK_LINK  = 'https://www.facebook.com/profile.php?id=61560257165979';
-    const WHATSAPP_LINK  = 'https://wa.me/212611185284';
-    const EMAIL_ADDRESS  = 'mohamedbouraada2000@gmail.com';
-    const PHONE_NUMBER   = '0611185284';
-
-    document.getElementById('profileImg').src        = PROFILE_IMAGE_URL;
-    document.getElementById('emailDisplay').innerText = EMAIL_ADDRESS;
-    document.getElementById('phoneDisplay').innerText = PHONE_NUMBER;
-    document.getElementById('githubLink').href        = GITHUB_LINK;
-    document.getElementById('facebookLink').href      = FACEBOOK_LINK;
-    document.getElementById('whatsappLink').href      = WHATSAPP_LINK;
-
-    /* ── CURSOR ── */
-    const dot = document.getElementById('cursorDot');
-    if (dot) document.addEventListener('mousemove', e => {
-      dot.style.transform = `translate(${e.clientX-5}px,${e.clientY-5}px)`;
-    });
-
-    /* ── TRANSLATIONS ── */
-    const T = {
-      ar:{
-        nav_home:'الرئيسية',nav_skills:'المهارات',nav_projects:'المشاريع',nav_services:'الخدمات',nav_contact:'اتصل بي',
-        hero_badge:'مطور ويب متكامل',hero_country:'المغرب',
-        hero_desc:'مطور ويب متكامل متخصص في stacks PERN و MERN، مع خبرة في الأتمتة (Python) وسحب البيانات، وبناء مواقع احترافية على WordPress، Shopify، YouCan.',
-        hero_hire:'تواصل معي',hero_projects:'مشاريعي',
-        skills_title:'مجالات الخبرة',skills_heading:'ما أتقنه',
-        skill_fullstack:'Full‑Stack (PERN/MERN)',skill_fullstack_desc:'PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.',
-        skill_automation:'الأتمتة & سحب البيانات',skill_automation_desc:'Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • أنابيب scraping دورية وتحليل البيانات.',
-        skill_cms:'متاجر ومنصات',skill_cms_desc:'WordPress، WooCommerce، Shopify، YouCan • قوالب، API، إدارة منتجات.',
-        projects_label:'أعمال منفذة',projects_heading:'أحدث المشاريع',
-        project1_title:'نظام إدارة الطلبات',project1_desc:'منصة توصيل (PERN) مع تتبع فوري، لوحة تحكم، وأدوار متعددة (عميل، سائق، مدير).',
-        project2_title:'Scraper تلقائي للأسعار',project2_desc:'أداة ببايثون تجمع بيانات المنتجات من Shopify, WooCommerce, YouCan وتنبه لتغير الأسعار.',
-        project3_title:'تطبيق Shopify مخصص',project3_desc:'تطبيق مدمج لمزامنة المخزون وتوجيه الطلبات آلياً بين المستودعات باستخدام Webhooks وNode.js.',
-        services_label:'خبرات منصات',services_heading:'بناء مواقع احترافية',
-        service_wp:'مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.',
-        service_shopify:'تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.',
-        service_youcan:'إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.',
-        contact_title:'تواصل معي',contact_desc:'أبحث عن فرص تعاون في مشاريع متكاملة، تطوير متاجر إلكترونية، أو أتمتة المهام.',
-        contact_location:'المغرب – العمل عن بعد',
-        contact_note:'📩 البريد الإلكتروني والهاتف متاحان للاستفسار حول مشاريع جديدة أو عروض عمل.',
-        contact_email_btn:'أرسل بريداً',contact_whatsapp_btn:'واتساب مباشر',
-        footer_name:'محمد بورعادة',footer_rights:'جميع الحقوق محفوظة',footer_remote:'عمل عن بعد حول العالم'
-      },
-      en:{
-        nav_home:'Home',nav_skills:'Skills',nav_projects:'Projects',nav_services:'Services',nav_contact:'Contact',
-        hero_badge:'Full-Stack Developer',hero_country:'Morocco',
-        hero_desc:'Full-stack web developer specialized in PERN & MERN stacks, with experience in automation (Python) and web scraping, building professional websites on WordPress, Shopify, YouCan.',
-        hero_hire:'Hire Me',hero_projects:'My Projects',
-        skills_title:'Expertise',skills_heading:'What I Master',
-        skill_fullstack:'Full‑Stack (PERN/MERN)',skill_fullstack_desc:'PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.',
-        skill_automation:'Automation & Scraping',skill_automation_desc:'Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • periodic scraping pipelines & data analysis.',
-        skill_cms:'Stores & Platforms',skill_cms_desc:'WordPress, WooCommerce, Shopify, YouCan • theme dev, API integrations, product management.',
-        projects_label:'Featured Work',projects_heading:'Latest Projects',
-        project1_title:'Order Management System',project1_desc:'Delivery platform (PERN) with real-time tracking, dashboard, and multi-role support (client, driver, admin).',
-        project2_title:'Automated Price Scraper',project2_desc:'Python tool collecting product data from Shopify, WooCommerce, YouCan with price change alerts.',
-        project3_title:'Custom Shopify App',project3_desc:'Embedded app for inventory sync and automated order routing between warehouses using Webhooks & Node.js.',
-        services_label:'Platform Expertise',services_heading:'Professional Websites',
-        service_wp:'Responsive websites, WooCommerce, performance, security, and API integration.',
-        service_shopify:'Store design, custom apps, product management, secure payment, integrations.',
-        service_youcan:'Arabic e-commerce store, shipping connectors, data extraction, API development.',
-        contact_title:'Contact Me',contact_desc:'Looking for collaboration on full-stack projects, e-commerce development, or automation tasks.',
-        contact_location:'Morocco – Remote Worldwide',
-        contact_note:'📩 Email and phone are open for new project inquiries or job offers.',
-        contact_email_btn:'Send Email',contact_whatsapp_btn:'WhatsApp Direct',
-        footer_name:'Mohamed Bouraada',footer_rights:'All rights reserved',footer_remote:'Remote worldwide'
-      },
-      fr:{
-        nav_home:'Accueil',nav_skills:'Compétences',nav_projects:'Projets',nav_services:'Services',nav_contact:'Contact',
-        hero_badge:'Développeur Full-Stack',hero_country:'Maroc',
-        hero_desc:'Développeur full-stack spécialisé dans les stacks PERN et MERN, avec expérience en automatisation (Python) et scraping, création de sites pro sur WordPress, Shopify, YouCan.',
-        hero_hire:'Engagez-moi',hero_projects:'Mes projets',
-        skills_title:'Domaines',skills_heading:'Ce que je maîtrise',
-        skill_fullstack:'Full‑Stack (PERN/MERN)',skill_fullstack_desc:'PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, APIs REST, JWT, Socket.io.',
-        skill_automation:'Automatisation & Scraping',skill_automation_desc:'Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • pipelines de scraping et analyse de données.',
-        skill_cms:'Boutiques & Plateformes',skill_cms_desc:'WordPress, WooCommerce, Shopify, YouCan • thèmes, intégrations API, gestion produit.',
-        projects_label:'Travaux récents',projects_heading:'Projets récents',
-        project1_title:'Système de gestion livraison',project1_desc:'Plateforme de livraison (PERN) avec suivi en temps réel, tableau de bord, rôles multiples.',
-        project2_title:'Scraper automatique de prix',project2_desc:'Outil Python collecte produits Shopify, WooCommerce, YouCan et alerte sur les changements de prix.',
-        project3_title:'Application Shopify personnalisée',project3_desc:'App intégrée pour synchronisation inventaire et routage automatique via Webhooks & Node.js.',
-        services_label:'Expertise plateformes',services_heading:'Sites professionnels',
-        service_wp:'Sites responsives, WooCommerce, performances, sécurité, intégration API.',
-        service_shopify:'Design de boutique, applis sur mesure, gestion produits, paiement sécurisé.',
-        service_youcan:'Boutique e-commerce arabe, connecteurs livraison, extraction données, API.',
-        contact_title:'Contactez-moi',contact_desc:'Recherche de collaboration sur projets full-stack, développement e-commerce ou automatisation.',
-        contact_location:'Maroc – Travail à distance',
-        contact_note:'📩 Email et téléphone disponibles pour nouvelles missions ou offres.',
-        contact_email_btn:'Envoyer un email',contact_whatsapp_btn:'WhatsApp direct',
-        footer_name:'Mohamed Bouraada',footer_rights:'Tous droits réservés',footer_remote:'Travail à distance mondial'
+      /* Mobile menu transition */
+      #mobileMenu {
+        transition: opacity 0.3s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       }
-    };
+      #mobileMenu.menu-hide {
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+      }
+      #mobileMenu.menu-show {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
 
-    /* ── PROJECTS ── */
-    const PROJECTS = [
-      {num:'01',tk:'project1_title',dk:'project1_desc',tags:['React','Express','Socket.io','PostgreSQL']},
-      {num:'02',tk:'project2_title',dk:'project2_desc',tags:['Python','BeautifulSoup','PostgreSQL']},
-      {num:'03',tk:'project3_title',dk:'project3_desc',tags:['Shopify API','Node.js','Webhooks']}
-    ];
+      /* Custom cursor */
+      @media (pointer: fine) {
+        body {
+          cursor: none;
+        }
+        .cursor-dot {
+          pointer-events: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 9999;
+          width: 10px;
+          height: 10px;
+          background: #8b0f1e;
+          border-radius: 50%;
+          mix-blend-mode: multiply;
+          transition: transform 0.08s;
+        }
+      }
+    </style>
+  </head>
 
-    function renderProjects(lang){
-      const grid = document.getElementById('projectsGrid');
-      const t = T[lang]||T.ar;
-      grid.innerHTML = '';
-      PROJECTS.forEach(p=>{
-        const el = document.createElement('div');
-        el.className = 'proj-c bg-white border border-black/8 rounded-sm p-7 flex flex-col gap-3 reveal hover:shadow-2xl transition-all hover:-translate-y-1';
-        el.innerHTML = `
-          <div class="font-display font-extrabold leading-none tracking-tight text-blood/10" style="font-size:3.5rem;">${p.num}</div>
-          <div class="font-display font-bold text-xl tracking-tight text-ink" data-i18n="${p.tk}">${t[p.tk]||''}</div>
-          <div class="text-muted text-sm leading-relaxed flex-1" data-i18n="${p.dk}">${t[p.dk]||''}</div>
-          <div class="flex flex-wrap gap-2 pt-1">
-            ${p.tags.map(tag=>`<span class="font-mono text-[.58rem] tracking-widest uppercase bg-cream text-muted px-2.5 py-1 rounded-sm">${tag}</span>`).join('')}
-          </div>`;
-        grid.appendChild(el);
-      });
-      observeReveal();
-    }
+  <body class="bg-paper text-ink antialiased">
+    <!-- Grain overlay -->
+    <div
+      class="noise fixed inset-0 z-[9998] pointer-events-none opacity-40"
+    ></div>
 
-    /* ── i18n ── */
-    function setLanguage(lang){
-      document.documentElement.lang = lang;
-      document.documentElement.dir  = lang==='ar'?'rtl':'ltr';
-      const t = T[lang]||T.ar;
-      document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const k = el.getAttribute('data-i18n');
-        if(t[k]!==undefined) el.innerText = t[k];
-      });
-      renderProjects(lang);
-    }
+    <!-- Custom cursor -->
+    <div class="cursor-dot hidden md:block" id="cursorDot"></div>
 
-    document.querySelectorAll('.lang-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.lang-btn').forEach(b=>{
-          b.classList.remove('bg-blood','text-white','border-blood');
-          b.classList.add('border-black/15','text-muted');
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <nav
+      class="fixed top-0 inset-x-0 z-50 bg-paper/85 backdrop-blur-xl border-b border-black/8 h-16 px-5 sm:px-8 lg:px-14 flex items-center justify-between gap-4"
+    >
+      <span
+        class="font-display font-extrabold text-2xl text-blood tracking-tight leading-none"
+        >MB.</span
+      >
+
+      <!-- Desktop nav -->
+      <ul class="hidden md:flex items-center gap-8 list-none">
+        <li>
+          <a href="#hero" class="nav-link" data-i18n="nav_home">الرئيسية</a>
+        </li>
+        <li>
+          <a href="#skills" class="nav-link" data-i18n="nav_skills">المهارات</a>
+        </li>
+        <li>
+          <a href="#projects" class="nav-link" data-i18n="nav_projects"
+            >المشاريع</a
+          >
+        </li>
+        <li>
+          <a href="#services" class="nav-link" data-i18n="nav_services"
+            >الخدمات</a
+          >
+        </li>
+        <li>
+          <a href="#contact" class="nav-link" data-i18n="nav_contact"
+            >اتصل بي</a
+          >
+        </li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- Language buttons -->
+        <div class="flex gap-1" id="langSwitch">
+          <button
+            data-lang="ar"
+            class="lang-btn font-mono text-[.6rem] tracking-widest uppercase px-3 py-1 rounded-sm border transition-all bg-blood text-white border-blood"
+          >
+            AR
+          </button>
+          <button
+            data-lang="en"
+            class="lang-btn font-mono text-[.6rem] tracking-widest uppercase px-3 py-1 rounded-sm border border-black/15 text-muted hover:bg-blood hover:text-white hover:border-blood transition-all"
+          >
+            EN
+          </button>
+          <button
+            data-lang="fr"
+            class="lang-btn font-mono text-[.6rem] tracking-widest uppercase px-3 py-1 rounded-sm border border-black/15 text-muted hover:bg-blood hover:text-white hover:border-blood transition-all"
+          >
+            FR
+          </button>
+        </div>
+        <!-- Hamburger -->
+        <button
+          id="hamburger"
+          class="md:hidden flex flex-col gap-[5px] justify-center items-end w-9 h-9 ml-1"
+          aria-label="Toggle menu"
+        >
+          <span class="block h-px bg-ink transition-all w-5" id="hb1"></span>
+          <span class="block h-px bg-ink transition-all w-5" id="hb2"></span>
+          <span class="block h-px bg-blood transition-all w-3" id="hb3"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div
+      id="mobileMenu"
+      class="menu-hide fixed top-16 inset-x-0 z-40 bg-paper/96 backdrop-blur-xl border-b border-black/8 px-5 py-4 flex flex-col gap-1 md:hidden"
+    >
+      <a
+        href="#hero"
+        data-i18n="nav_home"
+        class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors"
+        >الرئيسية</a
+      >
+      <a
+        href="#skills"
+        data-i18n="nav_skills"
+        class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors"
+        >المهارات</a
+      >
+      <a
+        href="#projects"
+        data-i18n="nav_projects"
+        class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors"
+        >المشاريع</a
+      >
+      <a
+        href="#services"
+        data-i18n="nav_services"
+        class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 border-b border-black/6 transition-colors"
+        >الخدمات</a
+      >
+      <a
+        href="#contact"
+        data-i18n="nav_contact"
+        class="font-mono text-[.7rem] tracking-widest uppercase text-muted hover:text-blood py-3 transition-colors"
+        >اتصل بي</a
+      >
+    </div>
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section
+      id="hero"
+      class="relative min-h-screen pt-16 flex items-center overflow-hidden"
+      style="
+        background-image: radial-gradient(
+          rgba(139, 15, 30, 0.065) 1px,
+          transparent 1px
+        );
+        background-size: 28px 28px;
+      "
+    >
+      <!-- Giant decorative letters -->
+      <span
+        class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 font-display font-extrabold leading-none select-none pointer-events-none text-transparent"
+        style="
+          font-size: clamp(10rem, 28vw, 26rem);
+          -webkit-text-stroke: 1px rgba(139, 15, 30, 0.055);
+        "
+        aria-hidden="true"
+        >MB</span
+      >
+
+      <div
+        class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-14 py-16 md:py-0 grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-10 lg:gap-20 items-center"
+      >
+        <!-- Text -->
+        <div
+          class="flex flex-col gap-5 text-center md:text-right order-2 md:order-1 reveal"
+        >
+          <div
+            class="flex items-center justify-center md:justify-end gap-2 font-mono text-[.63rem] tracking-[.18em] uppercase text-blood"
+          >
+            <span class="inline-block w-5 h-px bg-blood"></span>
+            <span data-i18n="hero_badge">مطور ويب متكامل</span>
+          </div>
+
+          <h1
+            class="font-display font-extrabold leading-[.93] tracking-tight text-ink"
+            style="font-size: clamp(3rem, 8vw, 5.5rem)"
+          >
+            Mohamed<br />
+            <span class="text-blood">Bouraada</span>
+          </h1>
+
+          <div class="flex justify-center md:justify-end">
+            <span
+              class="inline-flex items-center gap-2 font-mono text-xs tracking-wide uppercase bg-cream border border-black/10 text-muted px-3 py-1.5 rounded-sm"
+            >
+              <i class="fas fa-map-marker-alt text-blood text-[.6rem]"></i>
+              <span>🇲🇦</span>
+              <span data-i18n="hero_country">المغرب</span>
+            </span>
+          </div>
+
+          <p
+            class="text-muted leading-relaxed text-sm sm:text-base max-w-prose mx-auto md:mx-0"
+            data-i18n="hero_desc"
+          >
+            مطور ويب متكامل متخصص في stacks PERN و MERN، مع خبرة في الأتمتة
+            (Python) وسحب البيانات، وبناء مواقع احترافية على WordPress، Shopify،
+            YouCan.
+          </p>
+
+          <div class="flex flex-wrap gap-3 justify-center md:justify-end mt-1">
+            <a
+              href="#contact"
+              class="btn-blood inline-flex items-center gap-2 font-mono text-[.72rem] tracking-widest uppercase px-6 py-3 bg-blood text-white border border-blood rounded-sm"
+            >
+              <i class="fas fa-paper-plane text-[.65rem]"></i>
+              <span data-i18n="hero_hire">تواصل معي</span>
+            </a>
+            <a
+              href="#projects"
+              class="btn-ghost inline-flex items-center gap-2 font-mono text-[.72rem] tracking-widest uppercase px-6 py-3 bg-transparent text-ink border border-ink rounded-sm hover:bg-ink hover:text-white"
+            >
+              <span data-i18n="hero_projects">مشاريعي</span>
+              <i class="fas fa-arrow-left text-[.65rem]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="order-1 md:order-2 flex justify-center reveal">
+          <div
+            class="hero-frame"
+            style="width: min(280px, 72vw); aspect-ratio: 3/4"
+          >
+            <img
+              id="profileImg"
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="Mohamed Bouraada"
+              class="w-full h-full object-cover rounded-sm block"
+              style="filter: grayscale(15%) contrast(1.05)"
+            />
+            <!-- Badge -->
+            <div
+              class="absolute -bottom-5 -right-4 sm:-bottom-6 sm:-left-8 bg-ink text-white rounded-sm font-mono leading-relaxed shadow-2xl"
+              style="padding: 0.75rem 1rem; font-size: 0.6rem; min-width: 8rem"
+            >
+              <strong
+                class="block font-display font-extrabold text-blood tracking-tight leading-none mb-1"
+                style="font-size: 1.1rem"
+                >PERN<br />MERN</strong
+              >
+              🇲🇦 Morocco · Remote
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SKILLS ═══════════ -->
+    <section
+      id="skills"
+      class="bg-ink text-white py-20 md:py-28 px-5 sm:px-8 lg:px-14 relative overflow-hidden"
+    >
+      <!-- Dot pattern bg -->
+      <div
+        class="absolute inset-0 pointer-events-none opacity-[.07]"
+        style="
+          background-image: radial-gradient(
+            rgba(139, 15, 30, 0.5) 1px,
+            transparent 1px
+          );
+          background-size: 32px 32px;
+        "
+      ></div>
+
+      <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Section header -->
+        <div class="flex flex-wrap items-baseline gap-3 mb-12">
+          <span
+            class="font-mono text-[.63rem] tracking-[.18em] uppercase text-blood/75 flex items-center gap-2"
+          >
+            <span class="inline-block w-5 h-px bg-blood/60"></span>
+            <span data-i18n="skills_title">مجالات الخبرة</span>
+          </span>
+          <h2
+            class="font-display font-extrabold tracking-tight leading-none text-white"
+            style="font-size: clamp(2rem, 5vw, 3.5rem)"
+            data-i18n="skills_heading"
+          >
+            ما أتقنه
+          </h2>
+          <div class="flex-1 hidden sm:block h-px bg-white/8 self-center"></div>
+        </div>
+
+        <!-- Skill cards -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded overflow-hidden mb-10"
+        >
+          <div
+            class="skill-c bg-ink p-7 sm:p-8 hover:bg-white/[.03] transition-colors reveal"
+          >
+            <div class="text-blood text-3xl mb-5">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3
+              class="font-display font-bold text-lg text-white mb-2 tracking-tight"
+              data-i18n="skill_fullstack"
+            >
+              Full‑Stack (PERN/MERN)
+            </h3>
+            <p
+              class="text-white/40 text-sm leading-relaxed"
+              data-i18n="skill_fullstack_desc"
+            >
+              PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST
+              APIs, JWT, Socket.io.
+            </p>
+          </div>
+          <div
+            class="skill-c bg-ink p-7 sm:p-8 hover:bg-white/[.03] transition-colors reveal"
+          >
+            <div class="text-blood text-3xl mb-5">
+              <i class="fab fa-python"></i>
+            </div>
+            <h3
+              class="font-display font-bold text-lg text-white mb-2 tracking-tight"
+              data-i18n="skill_automation"
+            >
+              الأتمتة & سحب البيانات
+            </h3>
+            <p
+              class="text-white/40 text-sm leading-relaxed"
+              data-i18n="skill_automation_desc"
+            >
+              Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • أنابيب
+              scraping دورية وتحليل البيانات.
+            </p>
+          </div>
+          <div
+            class="skill-c bg-ink p-7 sm:p-8 hover:bg-white/[.03] transition-colors sm:col-span-2 lg:col-span-1 reveal"
+          >
+            <div class="text-blood text-3xl mb-5">
+              <i class="fas fa-store"></i>
+            </div>
+            <h3
+              class="font-display font-bold text-lg text-white mb-2 tracking-tight"
+              data-i18n="skill_cms"
+            >
+              متاجر ومنصات
+            </h3>
+            <p
+              class="text-white/40 text-sm leading-relaxed"
+              data-i18n="skill_cms_desc"
+            >
+              WordPress، WooCommerce، Shopify، YouCan • قوالب، API، إدارة
+              منتجات.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tech chips -->
+        <div class="flex flex-wrap gap-2">
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >PostgreSQL</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >MongoDB</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >Express.js</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >React.js</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >Node.js</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >Python Scraping</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >Shopify API</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >WordPress</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >Socket.io</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >JWT</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >Puppeteer</span
+          >
+          <span
+            class="font-mono text-[.6rem] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/38 rounded-sm hover:border-blood/50 hover:text-blood/75 transition-colors cursor-default"
+            >REST APIs</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PROJECTS ═══════════ -->
+    <section
+      id="projects"
+      class="bg-cream py-20 md:py-28 px-5 sm:px-8 lg:px-14"
+    >
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-wrap items-baseline gap-3 mb-12">
+          <span
+            class="font-mono text-[.63rem] tracking-[.18em] uppercase text-blood flex items-center gap-2"
+          >
+            <span class="inline-block w-5 h-px bg-blood"></span>
+            <span data-i18n="projects_label">أعمال منفذة</span>
+          </span>
+          <h2
+            class="font-display font-extrabold tracking-tight leading-none"
+            style="font-size: clamp(2rem, 5vw, 3.5rem)"
+            data-i18n="projects_heading"
+          >
+            أحدث المشاريع
+          </h2>
+          <div
+            class="flex-1 hidden sm:block h-px bg-black/10 self-center"
+          ></div>
+        </div>
+
+        <div
+          id="projectsGrid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        ></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SERVICES ═══════════ -->
+    <section
+      id="services"
+      class="bg-paper py-20 md:py-28 px-5 sm:px-8 lg:px-14 relative overflow-hidden"
+    >
+      <!-- Ghost watermark -->
+      <span
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-extrabold text-transparent select-none pointer-events-none whitespace-nowrap"
+        style="
+          font-size: clamp(5rem, 18vw, 17rem);
+          -webkit-text-stroke: 1px rgba(0, 0, 0, 0.03);
+        "
+        aria-hidden="true"
+        >SERVICES</span
+      >
+
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="flex flex-wrap items-baseline gap-3 mb-12">
+          <span
+            class="font-mono text-[.63rem] tracking-[.18em] uppercase text-blood flex items-center gap-2"
+          >
+            <span class="inline-block w-5 h-px bg-blood"></span>
+            <span data-i18n="services_label">خبرات منصات</span>
+          </span>
+          <h2
+            class="font-display font-extrabold tracking-tight leading-none"
+            style="font-size: clamp(2rem, 5vw, 3.5rem)"
+            data-i18n="services_heading"
+          >
+            بناء مواقع احترافية
+          </h2>
+          <div
+            class="flex-1 hidden sm:block h-px bg-black/10 self-center"
+          ></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div
+            class="serv-c bg-white border border-black/8 rounded-sm p-7 sm:p-8 flex flex-col gap-4 reveal"
+          >
+            <div
+              class="w-12 h-12 bg-blood/8 text-blood flex items-center justify-center rounded-sm text-xl shrink-0"
+            >
+              <i class="fab fa-wordpress"></i>
+            </div>
+            <div class="font-display font-bold text-xl tracking-tight">
+              WordPress
+            </div>
+            <div
+              class="text-muted text-sm leading-relaxed"
+              data-i18n="service_wp"
+            >
+              مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.
+            </div>
+          </div>
+
+          <div
+            class="serv-c bg-white border border-black/8 rounded-sm p-7 sm:p-8 flex flex-col gap-4 reveal"
+          >
+            <div
+              class="w-12 h-12 bg-blood/8 text-blood flex items-center justify-center rounded-sm text-xl shrink-0"
+            >
+              <i class="fab fa-shopify"></i>
+            </div>
+            <div class="font-display font-bold text-xl tracking-tight">
+              Shopify
+            </div>
+            <div
+              class="text-muted text-sm leading-relaxed"
+              data-i18n="service_shopify"
+            >
+              تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.
+            </div>
+          </div>
+
+          <div
+            class="serv-c bg-white border border-black/8 rounded-sm p-7 sm:p-8 flex flex-col gap-4 reveal"
+          >
+            <div
+              class="w-12 h-12 bg-blood/8 text-blood flex items-center justify-center rounded-sm text-xl shrink-0"
+            >
+              <i class="fas fa-chalkboard-user"></i>
+            </div>
+            <div class="font-display font-bold text-xl tracking-tight">
+              YouCan
+            </div>
+            <div
+              class="text-muted text-sm leading-relaxed"
+              data-i18n="service_youcan"
+            >
+              إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CONTACT ═══════════ -->
+    <section id="contact" class="bg-blood py-20 md:py-28 px-5 sm:px-8 lg:px-14">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-wrap items-baseline gap-3 mb-12">
+          <span
+            class="font-mono text-[.63rem] tracking-[.18em] uppercase text-white/45 flex items-center gap-2"
+          >
+            <span class="inline-block w-5 h-px bg-white/40"></span>
+            <span data-i18n="nav_contact">اتصل بي</span>
+          </span>
+          <h2
+            class="font-display font-extrabold tracking-tight leading-none text-white"
+            style="font-size: clamp(2rem, 5vw, 3.5rem)"
+            data-i18n="contact_title"
+          >
+            تواصل معي
+          </h2>
+          <div
+            class="flex-1 hidden sm:block h-px bg-white/15 self-center"
+          ></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+          <!-- Info -->
+          <div class="flex flex-col gap-5">
+            <p
+              class="text-white/60 text-sm leading-relaxed max-w-[42ch]"
+              data-i18n="contact_desc"
+            >
+              أبحث عن فرص تعاون في مشاريع متكاملة، تطوير متاجر إلكترونية، أو
+              أتمتة المهام.
+            </p>
+            <div class="flex flex-col gap-3">
+              <div
+                class="flex items-center gap-3 font-mono text-[.76rem] text-white/60"
+              >
+                <i
+                  class="fas fa-envelope text-white/30 w-4 text-center text-sm"
+                ></i>
+                <span dir="ltr" id="emailDisplay"
+                  >mohamedbouraada2000@gmail.com</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 font-mono text-[.76rem] text-white/60"
+              >
+                <i
+                  class="fas fa-phone-alt text-white/30 w-4 text-center text-sm"
+                ></i>
+                <span dir="ltr" id="phoneDisplay">0611185284</span>
+              </div>
+              <div
+                class="flex items-center gap-3 font-mono text-[.76rem] text-white/60"
+              >
+                <i
+                  class="fas fa-map-marker-alt text-white/30 w-4 text-center text-sm"
+                ></i>
+                <span data-i18n="contact_location">المغرب – العمل عن بعد</span>
+              </div>
+            </div>
+            <div class="flex gap-3 mt-1">
+              <a
+                id="githubLink"
+                href="#"
+                target="_blank"
+                class="w-10 h-10 flex items-center justify-center border border-white/20 text-white/50 hover:bg-white/12 hover:text-white hover:border-white/45 rounded-sm transition-all text-sm"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a
+                id="facebookLink"
+                href="#"
+                target="_blank"
+                class="w-10 h-10 flex items-center justify-center border border-white/20 text-white/50 hover:bg-white/12 hover:text-white hover:border-white/45 rounded-sm transition-all text-sm"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                id="whatsappLink"
+                href="#"
+                target="_blank"
+                class="w-10 h-10 flex items-center justify-center border border-white/20 text-white/50 hover:bg-white/12 hover:text-white hover:border-white/45 rounded-sm transition-all text-sm"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div
+            class="bg-white/8 border border-white/15 rounded-sm p-7 flex flex-col gap-4 backdrop-blur-sm"
+          >
+            <p
+              class="font-mono text-[.72rem] text-white/50 leading-relaxed"
+              data-i18n="contact_note"
+            >
+              📩 البريد الإلكتروني والهاتف متاحان للاستفسار حول مشاريع جديدة أو
+              عروض عمل.
+            </p>
+            <a
+              href="mailto:mohamedbouraada2000@gmail.com"
+              class="btn-white-lift inline-flex items-center justify-center gap-2 font-mono text-[.7rem] tracking-widest uppercase px-6 py-3 bg-white text-blood border border-white rounded-sm font-medium hover:bg-ink hover:border-ink hover:text-white"
+            >
+              <i class="fas fa-envelope text-[.65rem]"></i>
+              <span data-i18n="contact_email_btn">أرسل بريداً</span>
+            </a>
+            <a
+              href="https://wa.me/212611185284"
+              class="inline-flex items-center justify-center gap-2 font-mono text-[.7rem] tracking-widest uppercase px-6 py-3 bg-transparent text-white/70 border border-white/28 rounded-sm transition-all hover:bg-white/10 hover:border-white/55 hover:text-white"
+            >
+              <i class="fab fa-whatsapp text-[.65rem]"></i>
+              <span data-i18n="contact_whatsapp_btn">واتساب مباشر</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer
+      class="bg-ink text-white/28 py-5 px-5 sm:px-8 lg:px-14 flex flex-wrap items-center justify-between gap-3"
+    >
+      <span
+        class="font-display font-extrabold text-xl text-blood tracking-tight"
+        >MB.</span
+      >
+      <p class="font-mono text-[.6rem] tracking-wide text-center sm:text-right">
+        © 2025 <span data-i18n="footer_name">Mohamed Bouraada</span> —
+        <span data-i18n="footer_rights">جميع الحقوق محفوظة</span> ·
+        <span data-i18n="footer_remote">عمل عن بعد حول العالم</span>
+      </p>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a
+      href="https://wa.me/212611185284"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="wa-float fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25d366] hover:bg-[#1eb854] text-white rounded-full flex items-center justify-center text-2xl shadow-lg"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script>
+      /* ── CONSTANTS ── */
+      const PROFILE_IMAGE_URL = "./static/DSC_6815.JPG";
+      const GITHUB_LINK =
+        "https://github.com/sunrise-112?tab=overview&from=2026-05-01&to=2026-05-06";
+      const FACEBOOK_LINK =
+        "https://www.facebook.com/profile.php?id=61560257165979";
+      const WHATSAPP_LINK = "https://wa.me/212611185284";
+      const EMAIL_ADDRESS = "mohamedbouraada2000@gmail.com";
+      const PHONE_NUMBER = "0611185284";
+
+      document.getElementById("profileImg").src = PROFILE_IMAGE_URL;
+      document.getElementById("emailDisplay").innerText = EMAIL_ADDRESS;
+      document.getElementById("phoneDisplay").innerText = PHONE_NUMBER;
+      document.getElementById("githubLink").href = GITHUB_LINK;
+      document.getElementById("facebookLink").href = FACEBOOK_LINK;
+      document.getElementById("whatsappLink").href = WHATSAPP_LINK;
+
+      /* ── CURSOR ── */
+      const dot = document.getElementById("cursorDot");
+      if (dot)
+        document.addEventListener("mousemove", (e) => {
+          dot.style.transform = `translate(${e.clientX - 5}px,${
+            e.clientY - 5
+          }px)`;
         });
-        btn.classList.add('bg-blood','text-white','border-blood');
-        btn.classList.remove('border-black/15','text-muted');
-        setLanguage(btn.dataset.lang);
-        closeMobileMenu();
+
+      /* ── TRANSLATIONS ── */
+      const T = {
+        ar: {
+          nav_home: "الرئيسية",
+          nav_skills: "المهارات",
+          nav_projects: "المشاريع",
+          nav_services: "الخدمات",
+          nav_contact: "اتصل بي",
+          hero_badge: "مطور ويب متكامل",
+          hero_country: "المغرب",
+          hero_desc:
+            "مطور ويب متكامل متخصص في stacks PERN و MERN، مع خبرة في الأتمتة (Python) وسحب البيانات، وبناء مواقع احترافية على WordPress، Shopify، YouCan.",
+          hero_hire: "تواصل معي",
+          hero_projects: "مشاريعي",
+          skills_title: "مجالات الخبرة",
+          skills_heading: "ما أتقنه",
+          skill_fullstack: "Full‑Stack (PERN/MERN)",
+          skill_fullstack_desc:
+            "PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.",
+          skill_automation: "الأتمتة & سحب البيانات",
+          skill_automation_desc:
+            "Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • أنابيب scraping دورية وتحليل البيانات.",
+          skill_cms: "متاجر ومنصات",
+          skill_cms_desc:
+            "WordPress، WooCommerce، Shopify، YouCan • قوالب، API، إدارة منتجات.",
+          projects_label: "أعمال منفذة",
+          projects_heading: "أحدث المشاريع",
+          project1_title: " Delivery system نظام إدارة الطلبات",
+          project1_desc:
+            "منصة توصيل (PERN) مع تتبع فوري، لوحة تحكم، وأدوار متعددة (عميل، سائق، مدير).",
+          project2_title: "Scraper تلقائي للأسعار",
+          project2_desc:
+            "أداة ببايثون تجمع بيانات المنتجات من Shopify, WooCommerce, YouCan وتنبه لتغير الأسعار.",
+          project3_title: "تطبيق Shopify مخصص",
+          project3_desc:
+            "تطبيق مدمج لمزامنة المخزون وتوجيه الطلبات آلياً بين المستودعات باستخدام Webhooks وNode.js.",
+          project4_title: "منصة سياحية مخصصة",
+          project4_desc:
+            "حل سياحي متكامل مبني باستخدام PERN Stack يضم موقع حجز احترافي ولوحات تحكم للإدارة والعملاء من أجل إدارة الرحلات، الأنشطة، الحجوزات، العملاء والمدفوعات بكفاءة عالية.",
+          services_label: "خبرات منصات",
+          services_heading: "بناء مواقع احترافية",
+          service_wp: "مواقع متجاوبة، WooCommerce، تحسين أداء، أمان، وربط API.",
+          service_shopify:
+            "تصميم متاجر، تطبيقات مخصصة، إدارة المنتجات، دفع آمن، وتكاملات.",
+          service_youcan:
+            "إنشاء متجر إلكتروني عربي، ربط بشحنات، سحب بيانات، وتطوير API.",
+          contact_title: "تواصل معي",
+          contact_desc:
+            "أبحث عن فرص تعاون في مشاريع متكاملة، تطوير متاجر إلكترونية، أو أتمتة المهام.",
+          contact_location: "المغرب – العمل عن بعد",
+          contact_note:
+            "📩 البريد الإلكتروني والهاتف متاحان للاستفسار حول مشاريع جديدة أو عروض عمل.",
+          contact_email_btn: "أرسل بريداً",
+          contact_whatsapp_btn: "واتساب مباشر",
+          footer_name: "محمد بورعادة",
+          footer_rights: "جميع الحقوق محفوظة",
+          footer_remote: "عمل عن بعد حول العالم",
+        },
+        en: {
+          nav_home: "Home",
+          nav_skills: "Skills",
+          nav_projects: "Projects",
+          nav_services: "Services",
+          nav_contact: "Contact",
+          hero_badge: "Full-Stack Developer",
+          hero_country: "Morocco",
+          hero_desc:
+            "Full-stack web developer specialized in PERN & MERN stacks, with experience in automation (Python) and web scraping, building professional websites on WordPress, Shopify, YouCan.",
+          hero_hire: "Hire Me",
+          hero_projects: "My Projects",
+          skills_title: "Expertise",
+          skills_heading: "What I Master",
+          skill_fullstack: "Full‑Stack (PERN/MERN)",
+          skill_fullstack_desc:
+            "PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, REST APIs, JWT, Socket.io.",
+          skill_automation: "Automation & Scraping",
+          skill_automation_desc:
+            "Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • periodic scraping pipelines & data analysis.",
+          skill_cms: "Stores & Platforms",
+          skill_cms_desc:
+            "WordPress, WooCommerce, Shopify, YouCan • theme dev, API integrations, product management.",
+          projects_label: "Featured Work",
+          projects_heading: "Latest Projects",
+          project1_title: "Order Management System",
+          project1_desc:
+            "Delivery platform (PERN) with real-time tracking, dashboard, and multi-role support (client, driver, admin).",
+          project2_title: "Automated Price Scraper",
+          project2_desc:
+            "Python tool collecting product data from Shopify, WooCommerce, YouCan with price change alerts.",
+          project3_title: "Custom Shopify App",
+          project3_desc:
+            "Embedded app for inventory sync and automated order routing between warehouses using Webhooks & Node.js.",
+          project4_title: "Custom Tourism Agency Platform",
+          project4_desc:
+            "Advanced PERN stack tourism solution featuring a professional booking website with integrated admin and customer dashboards for managing tours, activities, reservations, clients, and payments efficiently.",
+          services_label: "Platform Expertise",
+          services_heading: "Professional Websites",
+          service_wp:
+            "Responsive websites, WooCommerce, performance, security, and API integration.",
+          service_shopify:
+            "Store design, custom apps, product management, secure payment, integrations.",
+          service_youcan:
+            "Arabic e-commerce store, shipping connectors, data extraction, API development.",
+          contact_title: "Contact Me",
+          contact_desc:
+            "Looking for collaboration on full-stack projects, e-commerce development, or automation tasks.",
+          contact_location: "Morocco – Remote Worldwide",
+          contact_note:
+            "📩 Email and phone are open for new project inquiries or job offers.",
+          contact_email_btn: "Send Email",
+          contact_whatsapp_btn: "WhatsApp Direct",
+          footer_name: "Mohamed Bouraada",
+          footer_rights: "All rights reserved",
+          footer_remote: "Remote worldwide",
+        },
+        fr: {
+          nav_home: "Accueil",
+          nav_skills: "Compétences",
+          nav_projects: "Projets",
+          nav_services: "Services",
+          nav_contact: "Contact",
+          hero_badge: "Développeur Full-Stack",
+          hero_country: "Maroc",
+          hero_desc:
+            "Développeur full-stack spécialisé dans les stacks PERN et MERN, avec expérience en automatisation (Python) et scraping, création de sites pro sur WordPress, Shopify, YouCan.",
+          hero_hire: "Engagez-moi",
+          hero_projects: "Mes projets",
+          skills_title: "Domaines",
+          skills_heading: "Ce que je maîtrise",
+          skill_fullstack: "Full‑Stack (PERN/MERN)",
+          skill_fullstack_desc:
+            "PostgreSQL, Express, React, Node.js • MongoDB, Mongoose, APIs REST, JWT, Socket.io.",
+          skill_automation: "Automatisation & Scraping",
+          skill_automation_desc:
+            "Python (BeautifulSoup, Scrapy, Selenium) • Puppeteer • pipelines de scraping et analyse de données.",
+          skill_cms: "Boutiques & Plateformes",
+          skill_cms_desc:
+            "WordPress, WooCommerce, Shopify, YouCan • thèmes, intégrations API, gestion produit.",
+          projects_label: "Travaux récents",
+          projects_heading: "Projets récents",
+          project1_title: "Système de gestion livraison",
+          project1_desc:
+            "Plateforme de livraison (PERN) avec suivi en temps réel, tableau de bord, rôles multiples.",
+          project2_title: "Scraper automatique de prix",
+          project2_desc:
+            "Outil Python collecte produits Shopify, WooCommerce, YouCan et alerte sur les changements de prix.",
+          project3_title: "Application Shopify personnalisée",
+          project3_desc:
+            "App intégrée pour synchronisation inventaire et routage automatique via Webhooks & Node.js.",
+          project4_title: "Plateforme Touristique Personnalisée",
+          project4_desc:
+            "Solution touristique avancée développée avec le stack PERN comprenant un site de réservation moderne ainsi que des tableaux de bord administrateur et client pour gérer efficacement les circuits, activités, réservations et paiements.",
+          services_label: "Expertise plateformes",
+          services_heading: "Sites professionnels",
+          service_wp:
+            "Sites responsives, WooCommerce, performances, sécurité, intégration API.",
+          service_shopify:
+            "Design de boutique, applis sur mesure, gestion produits, paiement sécurisé.",
+          service_youcan:
+            "Boutique e-commerce arabe, connecteurs livraison, extraction données, API.",
+          contact_title: "Contactez-moi",
+          contact_desc:
+            "Recherche de collaboration sur projets full-stack, développement e-commerce ou automatisation.",
+          contact_location: "Maroc – Travail à distance",
+          contact_note:
+            "📩 Email et téléphone disponibles pour nouvelles missions ou offres.",
+          contact_email_btn: "Envoyer un email",
+          contact_whatsapp_btn: "WhatsApp direct",
+          footer_name: "Mohamed Bouraada",
+          footer_rights: "Tous droits réservés",
+          footer_remote: "Travail à distance mondial",
+        },
+      };
+
+      /* ── PROJECTS ── */
+      const PROJECTS = [
+        {
+          num: "01",
+          tk: "project1_title",
+          dk: "project1_desc",
+          tags: ["React", "Express", "Socket.io", "PostgreSQL"],
+        },
+        {
+          num: "02",
+          tk: "project2_title",
+          dk: "project2_desc",
+          tags: ["Python", "BeautifulSoup", "PostgreSQL"],
+        },
+        {
+          num: "03",
+          tk: "project3_title",
+          dk: "project3_desc",
+          tags: ["Shopify API", "Node.js", "Webhooks"],
+        }, {
+          num: "04",
+          tk: "project4_title",
+          dk: "project4_desc",
+          tags: ["Tourism agency", "PERN stack", "Booking"],
+        },
+      ];
+
+      function renderProjects(lang) {
+        const grid = document.getElementById("projectsGrid");
+        const t = T[lang] || T.ar;
+        grid.innerHTML = "";
+        PROJECTS.forEach((p) => {
+          const el = document.createElement("div");
+          el.className =
+            "proj-c bg-white border border-black/8 rounded-sm p-7 flex flex-col gap-3 reveal hover:shadow-2xl transition-all hover:-translate-y-1";
+          el.innerHTML = `
+          <div class="font-display font-extrabold leading-none tracking-tight text-blood/10" style="font-size:3.5rem;">${
+            p.num
+          }</div>
+          <div class="font-display font-bold text-xl tracking-tight text-ink" data-i18n="${
+            p.tk
+          }">${t[p.tk] || ""}</div>
+          <div class="text-muted text-sm leading-relaxed flex-1" data-i18n="${
+            p.dk
+          }">${t[p.dk] || ""}</div>
+          <div class="flex flex-wrap gap-2 pt-1">
+            ${p.tags
+              .map(
+                (tag) =>
+                  `<span class="font-mono text-[.58rem] tracking-widest uppercase bg-cream text-muted px-2.5 py-1 rounded-sm">${tag}</span>`
+              )
+              .join("")}
+          </div>`;
+          grid.appendChild(el);
+        });
+        observeReveal();
+      }
+
+      /* ── i18n ── */
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        const t = T[lang] || T.ar;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const k = el.getAttribute("data-i18n");
+          if (t[k] !== undefined) el.innerText = t[k];
+        });
+        renderProjects(lang);
+      }
+
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".lang-btn").forEach((b) => {
+            b.classList.remove("bg-blood", "text-white", "border-blood");
+            b.classList.add("border-black/15", "text-muted");
+          });
+          btn.classList.add("bg-blood", "text-white", "border-blood");
+          btn.classList.remove("border-black/15", "text-muted");
+          setLanguage(btn.dataset.lang);
+          closeMobileMenu();
+        });
       });
-    });
 
-    /* ── MOBILE MENU ── */
-    const mobileMenu = document.getElementById('mobileMenu');
-    const hamburger  = document.getElementById('hamburger');
-    let menuOpen = false;
+      /* ── MOBILE MENU ── */
+      const mobileMenu = document.getElementById("mobileMenu");
+      const hamburger = document.getElementById("hamburger");
+      let menuOpen = false;
 
-    function closeMobileMenu(){
-      menuOpen = false;
-      mobileMenu.classList.remove('menu-show');
-      mobileMenu.classList.add('menu-hide');
-    }
+      function closeMobileMenu() {
+        menuOpen = false;
+        mobileMenu.classList.remove("menu-show");
+        mobileMenu.classList.add("menu-hide");
+      }
 
-    hamburger.addEventListener('click',()=>{
-      menuOpen = !menuOpen;
-      if(menuOpen){ mobileMenu.classList.add('menu-show'); mobileMenu.classList.remove('menu-hide'); }
-      else { closeMobileMenu(); }
-    });
+      hamburger.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          mobileMenu.classList.add("menu-show");
+          mobileMenu.classList.remove("menu-hide");
+        } else {
+          closeMobileMenu();
+        }
+      });
 
-    mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMobileMenu));
+      mobileMenu
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeMobileMenu));
 
-    /* ── SCROLL REVEAL ── */
-    function observeReveal(){
-      const io = new IntersectionObserver(entries=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }});
-      },{threshold:.1});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    }
+      /* ── SCROLL REVEAL ── */
+      function observeReveal() {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("show");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      }
 
-    /* ── INIT ── */
-    document.addEventListener('DOMContentLoaded',()=>{
-      renderProjects('ar');
-      setLanguage('ar');
-      observeReveal();
-    });
-  </script>
-</body>
+      /* ── INIT ── */
+      document.addEventListener("DOMContentLoaded", () => {
+        renderProjects("ar");
+        setLanguage("ar");
+        observeReveal();
+      });
+    </script>
+  </body>
 </html>
